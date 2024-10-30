@@ -1,0 +1,778 @@
+<!--
+  #%L
+  Code Critters
+  %%
+  Copyright (C) 2019 - 2024 Michael Gruber
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+  <!doctype html>
+  <html>
+  
+  <head>
+      <meta charset="UTF-8">
+      <title>Code Critters Quiz</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="/lib/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  
+      <!-- Web Components -->
+      <script type="module" src="critter_components/critter-header/critter-header.js"></script>
+      <script type="module" src="critter_components/critter-translator/critter-translator-escaped.js"></script>
+      <script type="module" src="critter_components/critter-copyright/critter-copyright.js"></script>
+      <script type="module" src="critter_components/Critter-SideBar/Critter-SideBar.js"></script>
+  
+      <!-- Stylesheets -->
+      <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  
+  
+      <style>
+          body {
+              font-family: 'Arial', sans-serif;
+              font-size: 0.9em;
+              margin: 0;
+              background-color: #f4f6f9;
+          }
+  
+          /* Sidebar Styles */
+          .sidebar {
+              position: fixed;
+              top: 0;
+              left: 0;
+              height: 100%;
+              width: 220px;
+              background-color: #ffffff;
+              color: #000000;
+              padding: 20px;
+              box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+          }
+  
+          .sidebar img {
+              width: 80%;
+              border-radius: 50%;
+              border: 3px solid #ffa600;
+              margin-bottom: 20px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+  
+          .sidebar h6 {
+              color: #000000;
+              margin-bottom: 10px;
+              font-size: 1.1em;
+          }
+  
+          .sidebar a {
+              display: flex;
+              align-items: center;
+              color: #000000;
+              padding: 10px 20px;
+              width: 100%;
+              text-decoration: none;
+              font-size: 1.1em;
+              border-radius: 8px;
+              transition: background-color 0.3s ease, color 0.3s ease;
+          }
+  
+          .sidebar a:hover {
+              background-color: #ffa600;
+              color: #ffffff;
+          }
+  
+          .sidebar i {
+              margin-right: 10px;
+          }
+  
+          .sidebar .active {
+              background-color: #ffa600;
+              color: #ffffff;
+          }
+  
+  
+          /* Gamified content */
+          .content {
+              margin-left: 240px;
+              padding: 20px;
+          }
+  
+          #copyright {
+              color: white;
+              background-color: rgb(57, 58, 61);
+              font-size: 1.2em;
+              padding: 2%;
+          }
+  
+          /* Make sure the quiz container is properly styled */
+          .quiz-container {
+              width: 80%;
+              margin: 0 auto; /* Centers the quiz container */
+              background-color: #fff;
+              padding: 30px;
+              border-radius: 15px;
+              box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+              text-align: center;
+              position: relative;
+              transition: all 0.5s ease;
+  
+          }
+  
+          /* Style for the language selector container */
+          .language-selector-container {
+              text-align: left;
+              margin-bottom: 20px;
+          }
+  
+          /* Style the language selector dropdown */
+          .language-selector-container select {
+              padding: 5px;
+              font-size: 1em;
+              border: 1px solid #ffa600;
+              border-radius: 5px;
+              background-color: #f4f4f4;
+              color: #333;
+          }
+  
+          /* Make sure the entire section layout is correct */
+          #quiz {
+              margin-top: 20px;
+          }
+  
+          #timer {
+              font-size: 1.5em;
+              margin-bottom: 20px;
+              color: #ff6347;
+          }
+  
+          .question {
+              font-size: 2em;
+              color: #ffa600;
+              margin-bottom: 20px;
+              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+          }
+  
+          .answer-btn {
+              display: block;
+              width: 80%;
+              padding: 15px;
+              margin: 10px auto;
+              background-color: #f9f9f9;
+              border: 2px solid #ffa600;
+              border-radius: 10px;
+              transition: all 0.3s ease;
+              font-size: 1.2em;
+              font-weight: bold;
+          }
+  
+          .answer-btn:hover {
+              cursor: pointer;
+              background-color: #ffa600;
+              color: white;
+              transform: translateY(-3px);
+          }
+  
+          .selected {
+              background-color: #ffa600;
+              color: white;
+          }
+  
+          .timer {
+              font-size: 1.8em;
+              margin-bottom: 20px;
+              color: #ff6347;
+          }
+  
+  
+          .next-btn {
+              margin-top: 30px;
+              padding: 12px 25px;
+              background-color: #ffa600;
+              color: white;
+              border: none;
+              border-radius: 10px;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+              font-size: 1.5em;
+              text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+          }
+  
+          .next-btn:hover {
+              background-color: #ff4500;
+          }
+  
+          /* Enhanced results */
+          .result-section {
+              display: none;
+              margin-top: 50px;
+              padding: 30px;
+              background-color: #f4f4f4;
+              border-radius: 15px;
+              text-align: center;
+          }
+  
+          .result-section h2 {
+              font-size: 2.5em;
+              color: #ffa600;
+          }
+  
+          .result-section p {
+              font-size: 1.5em;
+              color: #555;
+              margin: 10px 0;
+          }
+  
+          .gamified-ui {
+              font-weight: bold;
+              font-size: 1.8em;
+              color: #ff6347;
+              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+          }
+  
+          .review-list {
+              list-style: none;
+              padding: 0;
+              margin-top: 20px;
+          }
+  
+          .review-list li {
+              margin: 15px 0;
+              padding: 15px;
+              background-color: #ffa600;
+              border-radius: 10px;
+              color: white;
+              font-size: 1.2em;
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+          }
+  
+          .correct {
+              background-color: #4CAF50;
+          }
+  
+          .incorrect {
+              background-color: #FF4500;
+          }
+  
+          /* Loading Indicator */
+          .loading-section {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(255, 255, 255, 0.8);
+              z-index: 1000;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 2em;
+              color: #ffa600;
+          }
+  
+          
+          .ar .answer-btn,
+          .ar .next-btn {
+              margin: 10px auto;
+          }
+      </style>
+  </head>
+  
+  <body>
+  
+      <!-- Loading Indicator -->
+      <div id="loading" class="loading-section">Loading quiz...</div>
+  
+      <div class="sidebar">
+          <a href="/Avatars.html" class="no-hover">
+              <img id="profile-picture" src="character Background Removed.png" alt="Profile Picture">
+          </a>
+          <a href="/index.html">
+              <i class="fa fa-home"></i>
+              <h6><b><critter-translator-escaped key="Home"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/profile.html">
+              <i class="fa fa-user"></i>
+              <h6><b><critter-translator-escaped key="Profile"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/courses.html" class="active">
+              <i class="fa fa-book"></i>
+              <h6><b><critter-translator-escaped key="Courses"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/EnrolledCourses.html">
+              <i class="fa fa-list-alt"></i>
+              <h6><b><critter-translator-escaped key="Enrolled Courses"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/MyPoints.html">
+              <i class="fa fa-star"></i>
+              <h6><b><critter-translator-escaped key="My Points"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/DashBoard.html">
+              <i class="fa fa-star"></i>
+              <h6><b><critter-translator-escaped key="Dashboard"></critter-translator-escaped></b></h6>
+          </a>
+      </div>
+  
+      <div class="content">
+          <div class="row" id="header_row">
+              <div class="col-sm-12">
+                  <critter-header></critter-header>
+                  <hr>
+              </div>
+          </div>
+  
+          <!-- Quiz Section -->
+          <div class="quiz-container">
+              <!-- Language Selector inside the quiz container -->
+              <div class="language-selector-container">
+                  <label for="language-selector" id="select-language-label">Select Language:</label>
+                  <select id="language-selector" onchange="changeLanguage()">
+                      <option value="en">English</option>
+                      <option value="de">German</option>
+                      <option value="ar">Arabic</option>
+                  </select>
+              </div>
+  
+              <div id="timer" class="timer">Time Left: 10:00</div>
+  
+              <div id="quiz">
+                  <div id="question" class="question">Question text will appear here.</div>
+  
+                  <button class="answer-btn" data-answer="A">Answer A</button>
+                  <button class="answer-btn" data-answer="B">Answer B</button>
+                  <button class="answer-btn" data-answer="C">Answer C</button>
+                  <button class="answer-btn" data-answer="D">Answer D</button>
+  
+                  <button id="next" class="next-btn" onclick="nextQuestion()">Next Question</button>
+              </div>
+  
+              <div id="results" class="result-section">
+                  <h2 id="quiz-complete-title">Quiz Complete!</h2>
+                  <p id="correct-count-text">You got 0 out of 10 questions right!</p>
+                  <p class="gamified-ui" id="points-earned-text">You earned 0 points!</p>
+                  <p id="review-answers-text">Review your answers:</p>
+                  <ul id="review" class="review-list"></ul>
+              </div>
+          </div>
+  
+  
+          <hr>
+          <div class="content">
+  
+              <div class="row">
+                  <div class="col-sm-12" id="copyright">
+                      <critter-copyright></critter-copyright>
+                  </div>
+              </div>
+          </div>
+  
+      </div>
+      <script>
+          const BACKEND_URL = 'http://localhost:8080'; // Update if deployed elsewhere
+          let selectedLanguage = 'en';
+          let allQuestions = {}; // To store all questions from JSON
+          let currentQuizQuestions = []; // To store the 10 selected questions
+  
+          const uiText = {
+              en: {
+                  nextQuestion: "Next Question",
+                  timeLeft: "Time Left",
+                  quizComplete: "Quiz Complete!",
+                  correctCount: "You got {correct} out of 10 questions right!",
+                  pointsEarned: "You earned {points} points!",
+                  reviewAnswers: "Review your answers:",
+                  selectLanguage: "Select Language:",
+                  pleaseSelect: "Please select an answer.",
+                  correct: "Correct",
+                  incorrect: "Incorrect",
+                  correctAnswer: "Correct Answer:",
+                  yourAnswer: "Your Answer:",
+                  noAnswer: "No answer",
+              },
+              de: {
+                  nextQuestion: "Nächste Frage",
+                  timeLeft: "Verbleibende Zeit",
+                  quizComplete: "Quiz beendet!",
+                  correctCount: "Du hast {correct} von 10 Fragen richtig beantwortet!",
+                  pointsEarned: "Du hast {points} Punkte verdient!",
+                  reviewAnswers: "Überprüfe deine Antworten:",
+                  selectLanguage: "Sprache auswählen:",
+                  pleaseSelect: "Bitte wählen Sie eine Antwort.",
+                  correct: "Richtig",
+                  incorrect: "Falsch",
+                  correctAnswer: "Richtige Antwort:",
+                  yourAnswer: "Ihre Antwort:",
+                  noAnswer: "Keine Antwort",
+              },
+              ar: {
+                  nextQuestion: "السؤال التالي",
+                  timeLeft: "الوقت المتبقي",
+                  quizComplete: "اكتمل الاختبار!",
+                  correctCount: "لقد أجبت على {correct} من 10 أسئلة بشكل صحيح!",
+                  pointsEarned: "لقد حصلت على {points} نقاط!",
+                  reviewAnswers: "راجع إجاباتك:",
+                  selectLanguage: "اختر اللغة:",
+                  pleaseSelect: "يرجى اختيار إجابة.",
+                  correct: "صحيح",
+                  incorrect: "خاطئ",
+                  correctAnswer: "الإجابة الصحيحة:",
+                  yourAnswer: "إجابتك:",
+                  noAnswer: "لم يتم اختيار إجابة",
+              }
+          };
+  
+  
+          let currentQuestionIndex = 0;
+          let correctAnswers = 0;
+          let points = 0;
+          let timer;
+          let timeLeft = 600; // 10 minutes in seconds
+          let userId = '';  // To store the dynamic user ID
+          let userAnswers = []; // To track user answers
+  
+          // Fetch user data from the backend
+          async function fetchUserData() {
+              try {
+                  const response = await fetch(`${BACKEND_URL}/users/me`, {
+                      method: 'GET',
+                      headers: {
+                          'Content-Type': 'application/json',
+                          // Include authentication headers if necessary
+                      }
+                  });
+  
+                  if (response.ok) {
+                      const userData = await response.json();
+                      userId = userData.id;  // Store the user ID
+                      console.log("User ID fetched:", userId);
+                  } else {
+                      console.error('Failed to fetch user data:', response.statusText);
+                  }
+              } catch (error) {
+                  console.error('Error fetching user data:', error);
+              }
+          }
+  
+          // Load all questions from the JSON file
+          async function loadAllQuestions() {
+              try {
+                  document.getElementById('loading').style.display = 'flex'; // Show loading
+                  const response = await fetch('/questions.json'); // Ensure this path is correct
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+                  const data = await response.json();
+                  allQuestions = data;
+                  console.log("All questions loaded:", allQuestions);
+              } catch (error) {
+                  console.error('Failed to load questions:', error);
+                  alert('Unable to load quiz questions. Please try again later.');
+              } finally {
+                  document.getElementById('loading').style.display = 'none'; // Hide loading
+              }
+          }
+  
+          // Select 10 random questions based on the selected language
+          function selectRandomQuestions(language, count = 10) {
+              const questions = allQuestions[language];
+              if (!questions || questions.length === 0) {
+                  alert('No questions available for the selected language.');
+                  return [];
+              }
+              const shuffled = shuffleArray([...questions]); // Clone to avoid mutating the original array
+              return shuffled.slice(0, count);
+          }
+  
+          // Fisher-Yates Shuffle Algorithm for unbiased shuffling
+          function shuffleArray(array) {
+              for (let i = array.length - 1; i > 0; i--) {
+                  const j = Math.floor(Math.random() * (i + 1));
+                  [array[i], array[j]] = [array[j], array[i]];
+              }
+              return array;
+          }
+  
+          // Initialize the Quiz
+          function startQuiz() {
+              if (timer) {
+                  clearInterval(timer);
+              }
+  
+              correctAnswers = 0;
+              points = 0;
+              currentQuestionIndex = 0;
+              userAnswers = [];
+              timeLeft = 600; // Reset time to 10 minutes
+  
+              document.getElementById('results').style.display = 'none';
+              document.getElementById('quiz').style.display = 'block';
+  
+              loadQuestion();
+              startTimer();
+              updateUIText();
+          }
+  
+          // Load the Current Question
+          function loadQuestion() {
+              if (currentQuestionIndex >= currentQuizQuestions.length) {
+                  endQuiz();
+                  return;
+              }
+  
+              const questionData = currentQuizQuestions[currentQuestionIndex];
+              document.getElementById('question').innerText = questionData.question;
+              const answerButtons = document.querySelectorAll('.answer-btn');
+              answerButtons.forEach((btn, index) => {
+                  btn.innerText = questionData.options[index];
+                  btn.classList.remove('selected');
+              });
+  
+              // Reset the timer display for the new question
+              document.getElementById('timer').innerText = `${uiText[selectedLanguage].timeLeft}: ${formatTime(timeLeft)}`;
+          }
+  
+          // Handle Answer Selection
+          function selectAnswer(btn) {
+              const answerButtons = document.querySelectorAll('.answer-btn');
+              answerButtons.forEach(button => button.classList.remove('selected'));
+              btn.classList.add('selected');
+          }
+  
+          // Handle Next Question Logic
+          function nextQuestion() {
+              const selectedAnswer = document.querySelector('.answer-btn.selected');
+              if (selectedAnswer) {
+                  const answer = selectedAnswer.getAttribute('data-answer');
+  
+                  // Debugging Logs
+                  console.log(`Selected Language: ${selectedLanguage}`);
+                  console.log(`Current Question Index: ${currentQuestionIndex}`);
+                  console.log(`Total Questions for ${selectedLanguage}: ${allQuestions[selectedLanguage]?.length}`);
+  
+                  // Check if selectedLanguage is valid
+                  if (!allQuestions[selectedLanguage]) {
+                      console.error(`No questions found for language: ${selectedLanguage}`);
+                      alert("An error occurred with the selected language. Please try again.");
+                      return;
+                  }
+  
+                  // Check if currentQuestion is within bounds
+                  if (currentQuestionIndex >= currentQuizQuestions.length) {
+                      console.error(`Current question index (${currentQuestionIndex}) exceeds available questions (${currentQuizQuestions.length}).`);
+                      endQuiz();
+                      return;
+                  }
+  
+                  const currentQ = currentQuizQuestions[currentQuestionIndex];
+                  if (!currentQ) {
+                      console.error(`No question found at index ${currentQuestionIndex} for language ${selectedLanguage}.`);
+                      endQuiz();
+                      return;
+                  }
+  
+                  const correct = currentQ.correct;
+  
+                  // Track user's answer
+                  userAnswers.push(answer);
+  
+                  if (answer === correct) {
+                      correctAnswers++;
+                      points += 100;
+                  } else {
+                      points -= 50;
+                  }
+  
+                  currentQuestionIndex++;
+                  if (currentQuestionIndex < currentQuizQuestions.length) {
+                      loadQuestion();
+                  } else {
+                      endQuiz();
+                  }
+              } else {
+                  alert(uiText[selectedLanguage].pleaseSelect);
+              }
+          }
+  
+          // Format Time as MM:SS
+          function formatTime(seconds) {
+              const minutes = Math.floor(seconds / 60);
+              const secs = seconds % 60;
+              return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+          }
+  
+          // Start the Timer
+          function startTimer() {
+              // Clear existing timer if any
+              if (timer) {
+                  clearInterval(timer);
+              }
+  
+              // Initial display
+              document.getElementById('timer').innerText = `${uiText[selectedLanguage].timeLeft}: ${formatTime(timeLeft)}`;
+  
+              timer = setInterval(() => {
+                  if (timeLeft <= 0) {
+                      clearInterval(timer);
+                      endQuiz();
+                  } else {
+                      timeLeft--;
+                      document.getElementById('timer').innerText = `${uiText[selectedLanguage].timeLeft}: ${formatTime(timeLeft)}`;
+                  }
+              }, 1000);
+          }
+  
+          // End the Quiz and Show Results
+          async function endQuiz() {
+              const quizElement = document.getElementById('quiz');
+              const resultsElement = document.getElementById('results');
+              const correctCountTextElement = document.getElementById('correct-count-text');
+              const pointsEarnedTextElement = document.getElementById('points-earned-text');
+              const quizCompleteTitleElement = document.getElementById('quiz-complete-title');
+              const reviewAnswersTextElement = document.getElementById('review-answers-text');
+  
+              console.log({ quizElement, resultsElement, correctCountTextElement, pointsEarnedTextElement, quizCompleteTitleElement, reviewAnswersTextElement });
+  
+              if (!quizElement || !resultsElement || !correctCountTextElement || !pointsEarnedTextElement || !quizCompleteTitleElement || !reviewAnswersTextElement) {
+                  console.error("One or more elements are missing in the DOM.");
+                  return;
+              }
+  
+              quizElement.style.display = 'none';
+              resultsElement.style.display = 'block';
+  
+              // Update result texts
+              correctCountTextElement.innerText = uiText[selectedLanguage].correctCount.replace('{correct}', correctAnswers);
+              pointsEarnedTextElement.innerText = uiText[selectedLanguage].pointsEarned.replace('{points}', points);
+              quizCompleteTitleElement.innerText = uiText[selectedLanguage].quizComplete;
+              reviewAnswersTextElement.innerText = uiText[selectedLanguage].reviewAnswers;
+  
+              // Send updated points to the backend
+              await updateUserPoints(points);
+  
+              clearInterval(timer);
+              reviewAnswers();
+          }
+  
+          // Review Answers
+          function reviewAnswers() {
+              const reviewList = document.getElementById('review');
+              reviewList.innerHTML = ''; // Clear previous reviews if any
+  
+              currentQuizQuestions.forEach((q, index) => {
+                  const listItem = document.createElement('li');
+                  const userAnswer = userAnswers[index];
+                  const isCorrect = userAnswer === q.correct;
+                  const correctText = isCorrect ? uiText[selectedLanguage].correct : uiText[selectedLanguage].incorrect;
+                  const correctAnswerText = uiText[selectedLanguage].correctAnswer;
+                  const yourAnswerText = uiText[selectedLanguage].yourAnswer;
+                  const correctOption = q.options[q.correct.charCodeAt(0) - 65];
+                  const userOption = userAnswer ? q.options[userAnswer.charCodeAt(0) - 65] : uiText[selectedLanguage].noAnswer;
+  
+                  listItem.className = isCorrect ? 'correct' : 'incorrect';
+                  listItem.innerHTML = `<strong>${q.question}</strong><br>${yourAnswerText} ${userOption}<br>${correctAnswerText} ${correctOption}`;
+                  reviewList.appendChild(listItem);
+              });
+          }
+  
+          // Update UI Texts Based on Selected Language
+          function updateUIText() {
+              const texts = uiText[selectedLanguage];
+  
+              // Update labels and button texts
+              document.getElementById('next').innerText = texts.nextQuestion;
+              document.getElementById('timer').innerText = `${texts.timeLeft}: ${formatTime(timeLeft)}`;
+              document.getElementById('quiz-complete-title').innerText = texts.quizComplete;
+              document.getElementById('review-answers-text').innerText = texts.reviewAnswers;
+              document.getElementById('select-language-label').innerText = texts.selectLanguage;
+  
+              // Do NOT update 'correct-count-text' and 'points-earned-text' here to prevent overwriting results
+          }
+  
+          // Handle Language Change
+          function changeLanguage() {
+              selectedLanguage = document.getElementById('language-selector').value;
+              updateUIText();
+  
+              // Handle RTL languages
+              if (selectedLanguage === 'ar') {
+                  document.body.classList.add('ar');
+              } else {
+                  document.body.classList.remove('ar');
+              }
+  
+              // Select new random questions
+              currentQuizQuestions = selectRandomQuestions(selectedLanguage, 10);
+              if (currentQuizQuestions.length === 0) {
+                  alert('No questions available for the selected language.');
+                  return;
+              }
+              startQuiz();
+          }
+  
+          // Update User Points in Backend
+          async function updateUserPoints(pointsToAdd) {
+              if (!userId) {
+                  console.error('User ID not available. Cannot update points.');
+                  return;
+              }
+  
+              try {
+                  const response = await fetch(`${BACKEND_URL}/users/${userId}/points`, {
+                      method: 'PUT',
+                      headers: {
+                          'Content-Type': 'application/json',
+                          // Include authentication headers if necessary
+                      },
+                      body: JSON.stringify({ points: pointsToAdd }),
+                  });
+  
+                  if (response.ok) {
+                      const updatedUser = await response.json();
+                      console.log('Points updated successfully:', updatedUser.points);
+                  } else {
+                      console.error('Failed to update points:', response.statusText);
+                  }
+              } catch (error) {
+                  console.error('Error updating points:', error);
+              }
+          }
+  
+          // Event Listener for Answer Buttons
+          document.querySelectorAll('.answer-btn').forEach(btn => {
+              btn.addEventListener('click', () => selectAnswer(btn));
+          });
+  
+          // Initialize the Quiz when the Page Loads
+          document.addEventListener('DOMContentLoaded', async () => {
+              document.getElementById('loading').style.display = 'flex'; // Show loading
+              await fetchUserData();  // Fetch user data before starting the quiz
+              await loadAllQuestions(); // Load all questions from JSON
+              updateUIText();         // Initialize UI texts based on default language
+              currentQuizQuestions = selectRandomQuestions(selectedLanguage, 10); // Select initial set of questions
+              if (currentQuizQuestions.length === 0) {
+                  alert('No questions available for the selected language.');
+                  document.getElementById('loading').style.display = 'none'; // Hide loading
+                  return;
+              }
+              startQuiz();
+              document.getElementById('loading').style.display = 'none'; // Hide loading
+          });
+      </script>
+  
+  </body>
+  
+  </html>
+  

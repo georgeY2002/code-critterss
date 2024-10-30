@@ -1,0 +1,563 @@
+<!--
+  #%L
+  Code Critters
+  %%
+  Copyright (C) 2019 - 2024 Michael Gruber
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+<!doctype html>
+<html>
+
+<head>
+    <title>Code Critters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Important Imports -->
+    <script src="/lib/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script type=module src="critter_components/critter-header/critter-header.js"></script>
+    <script type=module src="critter_components/critter-change-profile/critter-change-profile.js"></script>
+    <script type=module src="critter_components/critter-translator/critter-translator-escaped.js"></script>
+    <script type=module src="critter_components/critter-copyright/critter-copyright.js"></script>
+
+    <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="/path/to/font-awesome/css/font-awesome.min.css">
+
+    <custom-style>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                font-size: 0.9em;
+                margin: 0;
+                background-color: #f4f6f9;
+            }
+
+            /* Sidebar Styles */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 220px;
+                background-color: #ffffff;
+                color: #000000;
+                padding: 20px;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar img {
+                width: 80%;
+                border-radius: 50%;
+                border: 3px solid #ffa600;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar h6 {
+                color: #000000;
+                margin-bottom: 10px;
+                font-size: 1.1em;
+            }
+
+            .sidebar a {
+                display: flex;
+                align-items: center;
+                color: #000000;
+                padding: 10px 20px;
+                width: 100%;
+                text-decoration: none;
+                font-size: 1.1em;
+                border-radius: 8px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+            .sidebar a:hover {
+                background-color: #ffa600;
+                color: #ffffff;
+            }
+
+            .sidebar i {
+                margin-right: 10px;
+            }
+
+            .sidebar .active {
+                background-color: #ffa600;
+                color: #ffffff;
+            }
+
+            /* Content */
+            .content {
+                margin-left: 240px;
+                padding: 20px;
+            }
+
+            /* Header Row */
+            #header_row {
+                background-color: white;
+            }
+
+            hr {
+                color: #ffa600;
+                background-color: #ffa600;
+                height: 3px;
+                margin: 0;
+            }
+
+            /* Footer */
+            #copyright {
+                color: white;
+                background-color: rgb(57, 58, 61);
+                font-size: 1.2em;
+                padding: 2%;
+            }
+
+            h6 {
+                color: #ffa600;
+            }
+
+            /* Courses Section */
+            .courses-section {
+                padding: 20px;
+            }
+
+            .courses-section h2 {
+                text-align: center;
+                margin-bottom: 40px;
+                color: rgba(255, 99, 132, 0.9);
+                font-size: 2.5em;
+                animation: fadeInDown 1s;
+            }
+
+            .course-card {
+                position: relative;
+                background: linear-gradient(135deg, rgba(255, 99, 132, 0.9), rgba(54, 162, 235, 0.9));
+                border-radius: 20px;
+                padding: 40px;
+                margin-bottom: 50px;
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+                transition: transform 0.3s, box-shadow 0.3s;
+                animation: fadeInUp 1s;
+                overflow: hidden;
+                width: 100%;
+                color: #fff;
+            }
+
+            .course-card:hover {
+                transform: translateY(-15px);
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            }
+
+            .course-card::before,
+            .course-card::after {
+                content: '';
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                animation: spin 6s linear infinite;
+            }
+
+            .course-card::before {
+                top: -50px;
+                right: -50px;
+            }
+
+            .course-card::after {
+                bottom: -50px;
+                left: -50px;
+                animation-direction: reverse;
+            }
+
+            .course-card-content {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .course-image {
+                flex: 0 0 200px;
+                height: 200px;
+                border-radius: 15px;
+                overflow: hidden;
+                margin-right: 30px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .course-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s, filter 0.5s;
+            }
+
+            .course-card:hover .course-image img {
+                transform: scale(1.1);
+                filter: brightness(1.2);
+            }
+
+            .course-details {
+                flex: 1;
+                min-width: 250px;
+            }
+
+            .course-details h3 {
+                color: #fff;
+                margin-bottom: 15px;
+                font-size: 2.5em;
+                text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+            }
+
+            .course-details .buttons {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 25px;
+            }
+
+            .course-details .buttons .btn {
+                margin-right: 15px;
+                margin-bottom: 10px;
+                border: none;
+                font-weight: bold;
+                font-size: 1.1em;
+                padding: 12px 25px;
+                border-radius: 30px;
+                transition: background-color 0.3s, transform 0.3s;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+            }
+
+            .course-details .buttons .btn i {
+                margin-right: 8px;
+            }
+
+            .course-details .buttons .btn:hover {
+                transform: translateY(-7px);
+            }
+
+            .btn-view-course {
+                background-color: rgba(0, 123, 255, 0.85);
+                color: #fff;
+            }
+
+            .btn-view-course:hover {
+                background-color: rgba(0, 123, 255, 1);
+            }
+
+            .btn-view-certificate {
+                background-color: rgba(255, 193, 7, 0.85);
+                color: #fff;
+            }
+
+            .btn-view-certificate:hover {
+                background-color: rgba(255, 193, 7, 1);
+            }
+
+            .course-info {
+                text-align: right;
+                min-width: 180px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            .course-info p {
+                margin: 0;
+                margin-right: 10px;
+                font-size: 1.3em;
+                color: #fff;
+                white-space: nowrap;
+            }
+
+            .btn-enroll {
+                background-color: rgba(40, 167, 69, 0.85);
+                border: none;
+                color: #fff;
+                font-weight: bold;
+                font-size: 1.1em;
+                padding: 12px 25px;
+                border-radius: 30px;
+                transition: background-color 0.3s, transform 0.3s;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+            }
+
+            .btn-enroll i {
+                margin-right: 8px;
+            }
+
+            .btn-enroll:hover {
+                background-color: rgba(40, 167, 69, 1);
+                transform: translateY(-7px);
+            }
+
+            /* Animations */
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* Responsive Design */
+            @media (max-width: 1200px) {
+                .course-details h3 {
+                    font-size: 2em;
+                }
+
+                .course-info p {
+                    font-size: 1.2em;
+                }
+            }
+
+            @media (max-width: 992px) {
+                .course-card-content {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .course-image {
+                    margin-right: 0;
+                    margin-bottom: 20px;
+                }
+
+                .course-info {
+                    text-align: left;
+                    margin-top: 20px;
+                    justify-content: flex-start;
+                }
+
+                .course-info p {
+                    font-size: 1.1em;
+                    margin-right: 10px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .sidebar {
+                    width: 100%;
+                    height: auto;
+                    position: relative;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    padding: 10px;
+                }
+
+                .sidebar img {
+                    width: 50px;
+                    margin-bottom: 0;
+                }
+
+                .sidebar h6 {
+                    display: none;
+                }
+
+                .sidebar a {
+                    padding: 10px;
+                    font-size: 0.9em;
+                }
+
+                .content {
+                    margin-left: 0;
+                    padding: 10px;
+                }
+
+                .courses-section h2 {
+                    font-size: 2em;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .course-details h3 {
+                    font-size: 1.8em;
+                }
+
+                .course-details .buttons .btn {
+                    font-size: 1em;
+                    padding: 10px 20px;
+                }
+
+                .course-info p {
+                    font-size: 1em;
+                }
+
+                .btn-enroll {
+                    font-size: 1em;
+                    padding: 10px 20px;
+                }
+            }
+        </style>
+    </custom-style>
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <!-- Profile Picture -->
+        <img src="character Background Removed.png" alt="Profile Picture">
+
+        <!-- Links with icons and critter-translator-escaped -->
+        <a href="/index.html">
+            <i class="fa fa-home"></i>
+            <h6><b><critter-translator-escaped key="home"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/profile.html">
+            <i class="fa fa-user"></i>
+            <h6><b><critter-translator-escaped key="profile"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/courses.html" class="active">
+            <i class="fa fa-book"></i>
+            <h6><b><critter-translator-escaped key="courses"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/EnrolledCourses.html">
+            <i class="fa fa-list-alt"></i>
+            <h6><b><critter-translator-escaped key="enrolled courses"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/MyPoints.html">
+            <i class="fa fa-star"></i>
+            <h6><b><critter-translator-escaped key="my points"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/DashBoard.html">
+            <i class="fa fa-star"></i>
+            <h6><b><critter-translator-escaped key="Dashboard"></critter-translator-escaped></b></h6>
+        </a>
+    </div>
+
+    <div class="content">
+        <div class="row" id="header_row">
+            <div class="col-sm-12">
+                <critter-header></critter-header>
+                <hr>
+            </div>
+        </div>
+
+        <!-- Courses Section -->
+        <div class="courses-section">
+            <h2><critter-translator-escaped key="Courses"></critter-translator-escaped></h2>
+
+            <!-- Course Card 1 -->
+            <div class="course-card">
+                <div class="course-card-content">
+                    <div class="course-image">
+                        <img src="HTRML.jpeg" alt="HTML Course">
+                    </div>
+                    <div class="course-details">
+                        <h3><critter-translator-escaped key="HTML Course"></critter-translator-escaped></h3>
+                        <div class="buttons">
+                            <a href="#" class="btn btn-view-course"><i class="fa fa-eye"></i><critter-translator-escaped key="View Course"></critter-translator-escaped></a>
+                            <a href="#" class="btn btn-view-certificate"><i class="fa fa-certificate"></i><critter-translator-escaped key="View Certificate"></critter-translator-escaped></a>
+                        </div>
+                    </div>
+                    <div class="course-info">
+                        <button class="btn btn-enroll"><i class="fa fa-sign-in"></i> <critter-translator-escaped key="Enroll"></critter-translator-escaped></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Card 2 -->
+            <div class="course-card">
+                <div class="course-card-content">
+                    <div class="course-image">
+                        <img src="css.jpeg" alt="CSS Course">
+                    </div>
+                    <div class="course-details">
+                        <h3><critter-translator-escaped key="CSS Course"></critter-translator-escaped></h3>
+                        <div class="buttons">
+                            <a href="DSCoursesDetials.html" class="btn btn-view-course">
+                                <i class="fa fa-eye"></i>
+                                <critter-translator-escaped key="View Course"></critter-translator-escaped>
+                            </a>
+                        <a href="#" class="btn btn-view-certificate"><i class="fa fa-certificate"></i><critter-translator-escaped key="View Certificate"></critter-translator-escaped></a>
+                        </div>
+                    </div>
+                    <div class="course-info">
+                        <button class="btn btn-enroll"><i class="fa fa-sign-in"></i> <critter-translator-escaped key="Enroll"></critter-translator-escaped></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Card 3 -->
+            <div class="course-card">
+                <div class="course-card-content">
+                    <div class="course-image">
+                        <img src="ds Background Removed.png" alt="Data Structures Course">
+                    </div>
+                    <div class="course-details">
+                        <h3><critter-translator-escaped key="CSS Course"></critter-translator-escaped></h3>
+                        <div class="buttons">
+                            <a href="DSCoursesDetials.html" class="btn btn-view-course">
+                                <i class="fa fa-eye"></i>
+                                <critter-translator-escaped key="View Course"></critter-translator-escaped>
+                            </a>
+                        <a href="certificate.html" class="btn btn-view-certificate"><i class="fa fa-certificate"></i><critter-translator-escaped key="View Certificate"></critter-translator-escaped></a>
+                        </div>
+                    </div>
+                    <div class="course-info">
+                        <a href="CourseEnrolled.html" class="btn btn-enroll">
+                            <i class="fa fa-sign-in"></i> 
+                            <critter-translator-escaped key="Enroll"></critter-translator-escaped>
+                        </a>
+                                            </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row">
+            <div class="col-sm-12" id="copyright">
+                <critter-copyright></critter-copyright>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

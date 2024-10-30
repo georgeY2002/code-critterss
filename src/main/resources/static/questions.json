@@ -1,0 +1,1510 @@
+
+
+{
+  "en": [
+    {
+      "question": "What are Data Structures?",
+      "options": [
+        "A way to store data",
+        "A primitive data type",
+        "A set of instructions",
+        "A method to solve problems"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Which is an example of a primitive data structure?",
+      "options": [
+        "Array",
+        "Integer",
+        "Stack",
+        "Queue"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What is an algorithm?",
+      "options": [
+        "A data structure",
+        "A step-by-step instruction to solve a problem",
+        "A programming language",
+        "A type of data"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What is an example of an algorithm?",
+      "options": [
+        "Bubble Sort",
+        "Linked List",
+        "Stack",
+        "Array"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What does Big O Notation represent?",
+      "options": [
+        "Time Complexity",
+        "Data Structure",
+        "Memory Size",
+        "CPU Speed"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What is the Divide and Conquer technique?",
+      "options": [
+        "A method for solving a problem by dividing it into sub-problems",
+        "A way to store data",
+        "A type of recursion",
+        "A method to solve sorting problems"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What is Brute Force in algorithms?",
+      "options": [
+        "An approach that tries all possible solutions",
+        "A fast way to solve a problem",
+        "A type of data structure",
+        "A way to manipulate data"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What is Recursion in programming?",
+      "options": [
+        "A technique where a function calls itself",
+        "A method of sorting data",
+        "A primitive data structure",
+        "A way to store data"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Which of the following is NOT a data structure?",
+      "options": [
+        "Stack",
+        "Queue",
+        "Integer",
+        "Linked List"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Where are Data Structures and Algorithms commonly used?",
+      "options": [
+        "Operating systems",
+        "Database systems",
+        "Web applications",
+        "All of the above"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "What is an array?",
+      "options": [
+        "A data structure used to store multiple elements",
+        "A set of algorithms",
+        "A programming language",
+        "A single value"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Which data structure is used to store multiple elements in contiguous memory?",
+      "options": [
+        "Linked List",
+        "Queue",
+        "Array",
+        "Stack"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "What does zero-based indexing mean?",
+      "options": [
+        "The first element is at index 1",
+        "The first element is at index 0",
+        "There is no first element",
+        "The first element is at index -1"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Which operation can be performed to find the lowest value in an array?",
+      "options": [
+        "Bubble Sort",
+        "Searching algorithm",
+        "Iterating through the array and comparing values",
+        "Binary Search"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "What is the purpose of the 'minVal' variable in the pseudocode for finding the lowest value in an array?",
+      "options": [
+        "To store the highest value",
+        "To store the first value",
+        "To store the lowest value found so far",
+        "To track the position of the current element"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "What is pseudocode?",
+      "options": [
+        "Code that can run directly on any computer",
+        "A high-level description of an algorithm using a mix of human language and programming constructs",
+        "A programming language",
+        "A specific code language used for sorting"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What is a Linked List?",
+      "options": [
+        "A type of algorithm",
+        "A linear data structure where elements are linked together using pointers",
+        "A fixed-size array",
+        "A data structure where elements are stored contiguously in memory"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What is a major benefit of using a Linked List?",
+      "options": [
+        "Nodes are stored contiguously in memory",
+        "Nodes can be inserted or deleted without shifting other nodes",
+        "It has a fixed size",
+        "It is more memory-efficient than arrays"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What is a Queue?",
+      "options": [
+        "A stack-like structure",
+        "A data structure where elements follow First In First Out (FIFO)",
+        "A data structure where elements are linked together",
+        "A list of random elements"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Which basic operation removes and returns the front element from a queue?",
+      "options": [
+        "Push",
+        "Pop",
+        "Enqueue",
+        "Dequeue"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "Which data structure is often compared with a Queue?",
+      "options": [
+        "Stack",
+        "Array",
+        "Linked List",
+        "Heap"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What is the difference between a Queue and a Stack?",
+      "options": [
+        "Queue follows FIFO while Stack follows LIFO",
+        "Queue follows LIFO while Stack follows FIFO",
+        "They are the same data structure",
+        "Queue is only used for graphs"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What is the 'Peek' operation in a Stack?",
+      "options": [
+        "It removes the top element",
+        "It returns the top element without removing it",
+        "It checks if the stack is empty",
+        "It adds a new element to the stack"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Which data structure uses Last In First Out (LIFO)?",
+      "options": [
+        "Queue",
+        "Array",
+        "Stack",
+        "Linked List"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Which is a reason to implement queues using arrays?",
+      "options": [
+        "Fixed size",
+        "Dynamic size",
+        "No shifting required for Dequeue operation",
+        "Memory-efficient compared to linked lists"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "What is a disadvantage of using arrays to implement queues?",
+      "options": [
+        "Arrays do not support queue operations",
+        "Dequeue operation requires shifting elements",
+        "Arrays are dynamic in size",
+        "Arrays are slower than linked lists"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Which operation adds a new element to the stack?",
+      "options": [
+        "Pop",
+        "Push",
+        "Peek",
+        "Dequeue"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Which is NOT a basic operation of a Queue?",
+      "options": [
+        "Enqueue",
+        "Dequeue",
+        "Push",
+        "Peek"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Which data structure can be used to implement the undo mechanism in software?",
+      "options": [
+        "Queue",
+        "Linked List",
+        "Stack",
+        "Array"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "What is the benefit of using linked lists to implement stacks?",
+      "options": [
+        "Dynamic size and no shifting",
+        "Fixed size",
+        "More memory-efficient",
+        "Easier to implement"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What is a Hash Table?",
+      "options": [
+        "A data structure used to store large amounts of data quickly",
+        "A method for sorting data",
+        "A type of linked list",
+        "A primitive data type"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What is the purpose of a hash function in a Hash Table?",
+      "options": [
+        "To compare all elements in a list",
+        "To directly find where to store or retrieve data",
+        "To sort data in the Hash Table",
+        "To compress the size of the data"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What does a hash code represent?",
+      "options": [
+        "The exact value of the element",
+        "A unique key used to identify the element in the Hash Table",
+        "The index of the next element",
+        "The size of the data structure"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What issue arises when two different elements have the same hash code?",
+      "options": [
+        "A syntax error",
+        "A memory overflow",
+        "A collision",
+        "A duplication"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Which technique is used to handle collisions in a Hash Table?",
+      "options": [
+        "Binary search",
+        "Chaining",
+        "Recursion",
+        "Modulus operation"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What does the modulus (%) operation in a hash function do?",
+      "options": [
+        "Divides the elements into separate parts",
+        "Returns the remainder of a division",
+        "Finds the largest element",
+        "Converts characters into numbers"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "In the example, where is 'Bob' stored in the Hash Table?",
+      "options": [
+        "Index 0",
+        "Index 3",
+        "Index 5",
+        "Index 9"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "What is the main advantage of using a Hash Table over arrays or linked lists?",
+      "options": [
+        "More memory-efficient",
+        "Faster access and modification of data",
+        "Can store more types of data",
+        "Easier to implement"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What is chaining in a Hash Table?",
+      "options": [
+        "A method to speed up searching",
+        "Storing multiple elements in the same bucket by linking them",
+        "Sorting elements before storing them",
+        "A method to remove elements from the table"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Which of the following is NOT a common use of Hash Tables?",
+      "options": [
+        "Checking if an item exists in a collection",
+        "Storing unique items",
+        "Performing arithmetic operations",
+        "Linking keys to values"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "What does the term 'bucket' refer to in a Hash Table?",
+      "options": [
+        "The entire data structure",
+        "A group of elements with the same hash code",
+        "The hash code generator",
+        "The sorting algorithm used"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What is a Hash Set?",
+      "options": [
+        "A data structure for storing key-value pairs",
+        "A data structure for storing unique items without key-value pairs",
+        "A method for finding hash codes",
+        "An algorithm for sorting elements"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What is a Hash Map?",
+      "options": [
+        "A type of sorting algorithm",
+        "A data structure for storing key-value pairs",
+        "A collection of hash functions",
+        "A special type of array"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "How does a Hash Map differ from a Hash Set?",
+      "options": [
+        "A Hash Map stores key-value pairs, while a Hash Set stores only unique keys",
+        "A Hash Map is slower than a Hash Set",
+        "A Hash Set requires more memory than a Hash Map",
+        "They are the same"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Which operation has a time complexity of O(1) on average in Hash Tables?",
+      "options": [
+        "Searching",
+        "Sorting",
+        "Inserting",
+        "Both Searching and Inserting"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "What happens during a collision in a Hash Table?",
+      "options": [
+        "Two elements have the same hash code and try to be stored in the same bucket",
+        "Elements are removed from the table",
+        "The table automatically resizes",
+        "Two elements swap their positions"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What is Open Addressing in Hash Tables?",
+      "options": [
+        "A method to handle collisions by finding another bucket to store the element",
+        "A way to hash more efficiently",
+        "A method to sort elements",
+        "A method to remove elements from the table"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "What does O(1) time complexity mean?",
+      "options": [
+        "The operation time grows linearly with the data size",
+        "The operation time is constant and does not depend on the data size",
+        "The operation time decreases as the data size grows",
+        "The operation time is random"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "What are Hash Tables commonly used for?",
+      "options": [
+        "Sorting large sets of data",
+        "Storing and retrieving data efficiently",
+        "Performing arithmetic calculations",
+        "Building hierarchical structures"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "How can collisions in Hash Tables be minimized?",
+      "options": [
+        "By increasing the number of buckets",
+        "By reducing the size of the data",
+        "By sorting the data before insertion",
+        "By using only prime numbers in the data"
+      ],
+      "correct": "A"
+    }
+  ],
+  "de": [
+    {
+      "question": "Was sind Datenstrukturen?",
+      "options": [
+        "Eine Möglichkeit, Daten zu speichern",
+        "Ein primitiver Datentyp",
+        "Eine Anweisungssammlung",
+        "Eine Methode zur Problemlösung"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Welches ist ein Beispiel für eine primitive Datenstruktur?",
+      "options": [
+        "Array",
+        "Ganzzahl",
+        "Stapel",
+        "Warteschlange"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was ist ein Algorithmus?",
+      "options": [
+        "Eine Datenstruktur",
+        "Eine Schritt-für-Schritt-Anweisung zur Problemlösung",
+        "Eine Programmiersprache",
+        "Ein Datentyp"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was ist ein Beispiel für einen Algorithmus?",
+      "options": [
+        "Bubble Sort",
+        "Verkettete Liste",
+        "Stapel",
+        "Array"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was stellt die Big-O-Notation dar?",
+      "options": [
+        "Zeitkomplexität",
+        "Datenstruktur",
+        "Speichergröße",
+        "CPU-Geschwindigkeit"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was ist die Divide and Conquer Technik?",
+      "options": [
+        "Eine Methode zur Lösung von Problemen, indem sie in Teilprobleme zerlegt werden",
+        "Eine Möglichkeit, Daten zu speichern",
+        "Eine Art von Rekursion",
+        "Eine Methode zur Lösung von Sortierproblemen"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was bedeutet Brute Force bei Algorithmen?",
+      "options": [
+        "Ein Ansatz, der alle möglichen Lösungen ausprobiert",
+        "Eine schnelle Möglichkeit, ein Problem zu lösen",
+        "Eine Art von Datenstruktur",
+        "Eine Möglichkeit, Daten zu manipulieren"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was ist Rekursion in der Programmierung?",
+      "options": [
+        "Eine Technik, bei der eine Funktion sich selbst aufruft",
+        "Eine Methode zur Sortierung von Daten",
+        "Eine primitive Datenstruktur",
+        "Eine Möglichkeit, Daten zu speichern"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Welche der folgenden ist KEINE Datenstruktur?",
+      "options": [
+        "Stapel",
+        "Warteschlange",
+        "Ganzzahl",
+        "Verkettete Liste"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Wo werden Datenstrukturen und Algorithmen häufig verwendet?",
+      "options": [
+        "Betriebssysteme",
+        "Datenbanksysteme",
+        "Webanwendungen",
+        "Alle oben genannten"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "Was ist ein Array?",
+      "options": [
+        "Eine Datenstruktur zur Speicherung mehrerer Elemente",
+        "Eine Sammlung von Algorithmen",
+        "Eine Programmiersprache",
+        "Ein einzelner Wert"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Welche Datenstruktur wird verwendet, um mehrere Elemente im zusammenhängenden Speicher zu speichern?",
+      "options": [
+        "Verkettete Liste",
+        "Warteschlange",
+        "Array",
+        "Stapel"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Was bedeutet die Null-basierte Indizierung?",
+      "options": [
+        "Das erste Element befindet sich bei Index 1",
+        "Das erste Element befindet sich bei Index 0",
+        "Es gibt kein erstes Element",
+        "Das erste Element befindet sich bei Index -1"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Welche Operation kann verwendet werden, um den kleinsten Wert in einem Array zu finden?",
+      "options": [
+        "Bubble Sort",
+        "Suchalgorithmus",
+        "Durchlaufen des Arrays und Vergleichen der Werte",
+        "Binäre Suche"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Was ist der Zweck der Variable 'minVal' im Pseudocode zum Finden des kleinsten Wertes in einem Array?",
+      "options": [
+        "Um den höchsten Wert zu speichern",
+        "Um den ersten Wert zu speichern",
+        "Um den bisher gefundenen kleinsten Wert zu speichern",
+        "Um die Position des aktuellen Elements zu verfolgen"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Was ist Pseudocode?",
+      "options": [
+        "Code, der direkt auf jedem Computer ausgeführt werden kann",
+        "Eine hochstufige Beschreibung eines Algorithmus unter Verwendung einer Mischung aus menschlicher Sprache und Programmierkonstrukten",
+        "Eine Programmiersprache",
+        "Ein bestimmter Code, der für das Sortieren verwendet wird"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was ist eine Verkettete Liste?",
+      "options": [
+        "Eine Art von Algorithmus",
+        "Eine lineare Datenstruktur, bei der die Elemente durch Zeiger miteinander verbunden sind",
+        "Ein Array mit fester Größe",
+        "Eine Datenstruktur, bei der Elemente zusammenhängend im Speicher gespeichert werden"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was ist ein großer Vorteil der Verwendung von Verketteten Listen?",
+      "options": [
+        "Die Knoten werden zusammenhängend im Speicher gespeichert",
+        "Knoten können eingefügt oder gelöscht werden, ohne dass andere Knoten verschoben werden müssen",
+        "Sie hat eine feste Größe",
+        "Sie ist speichereffizienter als Arrays"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was ist eine Warteschlange?",
+      "options": [
+        "Eine stapelähnliche Struktur",
+        "Eine Datenstruktur, bei der das Prinzip First In First Out (FIFO) gilt",
+        "Eine Datenstruktur, bei der die Elemente miteinander verbunden sind",
+        "Eine zufällige Liste von Elementen"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Welche Grundoperation entfernt und gibt das erste Element in einer Warteschlange zurück?",
+      "options": [
+        "Push",
+        "Pop",
+        "Enqueue",
+        "Dequeue"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "Welche Datenstruktur wird oft mit einer Warteschlange verglichen?",
+      "options": [
+        "Stapel",
+        "Array",
+        "Verkettete Liste",
+        "Heap"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was ist der Unterschied zwischen einer Warteschlange und einem Stapel?",
+      "options": [
+        "Warteschlange folgt FIFO, Stapel folgt LIFO",
+        "Warteschlange folgt LIFO, Stapel folgt FIFO",
+        "Sie sind die gleichen Datenstrukturen",
+        "Warteschlange wird nur in Graphen verwendet"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was ist die 'Peek'-Operation in einem Stapel?",
+      "options": [
+        "Sie entfernt das oberste Element",
+        "Sie gibt das oberste Element zurück, ohne es zu entfernen",
+        "Sie prüft, ob der Stapel leer ist",
+        "Sie fügt ein neues Element in den Stapel ein"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Welche Datenstruktur verwendet Last In First Out (LIFO)?",
+      "options": [
+        "Warteschlange",
+        "Array",
+        "Stapel",
+        "Verkettete Liste"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Welcher Grund spricht für die Implementierung von Warteschlangen mit Arrays?",
+      "options": [
+        "Feste Größe",
+        "Dynamische Größe",
+        "Kein Verschieben der Elemente bei der Dequeue-Operation erforderlich",
+        "Speichereffizient im Vergleich zu Verketteten Listen"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "Was ist ein Nachteil der Verwendung von Arrays zur Implementierung von Warteschlangen?",
+      "options": [
+        "Arrays unterstützen keine Warteschlangen-Operationen",
+        "Die Dequeue-Operation erfordert das Verschieben von Elementen",
+        "Arrays haben eine dynamische Größe",
+        "Arrays sind langsamer als Verkettete Listen"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Welche Operation fügt ein neues Element in den Stapel ein?",
+      "options": [
+        "Pop",
+        "Push",
+        "Peek",
+        "Dequeue"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Welche der folgenden ist KEINE Grundoperation einer Warteschlange?",
+      "options": [
+        "Enqueue",
+        "Dequeue",
+        "Push",
+        "Peek"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Welche Datenstruktur kann verwendet werden, um eine Undo-Funktion in Software zu implementieren?",
+      "options": [
+        "Warteschlange",
+        "Verkettete Liste",
+        "Stapel",
+        "Array"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Was ist der Vorteil der Verwendung von Verketteten Listen zur Implementierung von Stapeln?",
+      "options": [
+        "Dynamische Größe und kein Verschieben erforderlich",
+        "Feste Größe",
+        "Speichereffizienter",
+        "Einfacher zu implementieren"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was ist eine Hashtabelle?",
+      "options": [
+        "Eine Datenstruktur, die verwendet wird, um große Datenmengen schnell zu verarbeiten",
+        "Eine Methode zum Sortieren von Daten",
+        "Eine Art verkettete Liste",
+        "Ein primitiver Datentyp"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was ist der Zweck einer Hashfunktion in einer Hashtabelle?",
+      "options": [
+        "Um alle Elemente in einer Liste zu vergleichen",
+        "Um direkt zu finden, wo Daten gespeichert oder abgerufen werden sollen",
+        "Um Daten in der Hashtabelle zu sortieren",
+        "Um die Größe der Daten zu komprimieren"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was stellt ein Hashcode dar?",
+      "options": [
+        "Den genauen Wert des Elements",
+        "Einen eindeutigen Schlüssel, der verwendet wird, um das Element in der Hashtabelle zu identifizieren",
+        "Den Index des nächsten Elements",
+        "Die Größe der Datenstruktur"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Welches Problem tritt auf, wenn zwei verschiedene Elemente denselben Hashcode haben?",
+      "options": [
+        "Ein Syntaxfehler",
+        "Ein Speicherüberlauf",
+        "Eine Kollision",
+        "Eine Duplizierung"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Welche Technik wird verwendet, um Kollisionen in einer Hashtabelle zu behandeln?",
+      "options": [
+        "Binäre Suche",
+        "Chaining",
+        "Rekursion",
+        "Modulo-Operation"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was macht die Modulo-Operation (%) in einer Hashfunktion?",
+      "options": [
+        "Teilt die Elemente in separate Teile",
+        "Gibt den Rest einer Division zurück",
+        "Findet das größte Element",
+        "Wandelt Zeichen in Zahlen um"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Wo wird 'Bob' im Beispiel in der Hashtabelle gespeichert?",
+      "options": [
+        "Index 0",
+        "Index 3",
+        "Index 5",
+        "Index 9"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Was ist der Hauptvorteil der Verwendung einer Hashtabelle gegenüber Arrays oder verketteten Listen?",
+      "options": [
+        "Speichereffizienter",
+        "Schnellerer Zugriff und Änderung von Daten",
+        "Kann mehr Datentypen speichern",
+        "Einfacher zu implementieren"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was ist Chaining in einer Hashtabelle?",
+      "options": [
+        "Eine Methode, um die Suche zu beschleunigen",
+        "Speichern mehrerer Elemente im selben Bucket durch Verknüpfen",
+        "Sortieren von Elementen vor der Speicherung",
+        "Eine Methode, um Elemente aus der Tabelle zu entfernen"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Welche der folgenden Anwendungen ist KEINE häufige Verwendung von Hashtabellen?",
+      "options": [
+        "Überprüfen, ob ein Element in einer Sammlung vorhanden ist",
+        "Speichern eindeutiger Elemente",
+        "Durchführen von arithmetischen Operationen",
+        "Verknüpfen von Schlüsseln mit Werten"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "Was bedeutet der Begriff 'Bucket' in einer Hashtabelle?",
+      "options": [
+        "Die gesamte Datenstruktur",
+        "Eine Gruppe von Elementen mit demselben Hashcode",
+        "Der Hashcode-Generator",
+        "Der verwendete Sortieralgorithmus"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was ist eine Hash Set?",
+      "options": [
+        "Eine Datenstruktur zur Speicherung von Schlüssel-Wert-Paaren",
+        "Eine Datenstruktur zur Speicherung eindeutiger Elemente ohne Schlüssel-Wert-Paare",
+        "Eine Methode zum Auffinden von Hashcodes",
+        "Ein Algorithmus zum Sortieren von Elementen"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Was ist eine Hash Map?",
+      "options": [
+        "Eine Art Sortieralgorithmus",
+        "Eine Datenstruktur zur Speicherung von Schlüssel-Wert-Paaren",
+        "Eine Sammlung von Hashfunktionen",
+        "Eine spezielle Art von Array"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Worin unterscheidet sich eine Hash Map von einer Hash Set?",
+      "options": [
+        "Eine Hash Map speichert Schlüssel-Wert-Paare, während eine Hash Set nur eindeutige Schlüssel speichert",
+        "Eine Hash Map ist langsamer als eine Hash Set",
+        "Eine Hash Set benötigt mehr Speicher als eine Hash Map",
+        "Sie sind gleich"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Welche Operation hat eine Zeitkomplexität von O(1) im Durchschnitt in Hashtabellen?",
+      "options": [
+        "Suche",
+        "Sortieren",
+        "Einfügen",
+        "Sowohl Suche als auch Einfügen"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "Was passiert bei einer Kollision in einer Hashtabelle?",
+      "options": [
+        "Zwei Elemente haben denselben Hashcode und versuchen, im selben Bucket gespeichert zu werden",
+        "Elemente werden aus der Tabelle entfernt",
+        "Die Tabelle wird automatisch vergrößert",
+        "Zwei Elemente tauschen ihre Positionen"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was ist Open Addressing in Hashtabellen?",
+      "options": [
+        "Eine Methode zur Behandlung von Kollisionen, indem ein anderer Bucket gefunden wird, um das Element zu speichern",
+        "Eine Möglichkeit, effizienter zu hashen",
+        "Eine Methode, um Elemente zu sortieren",
+        "Eine Methode, um Elemente aus der Tabelle zu entfernen"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "Was bedeutet O(1) Zeitkomplexität?",
+      "options": [
+        "Die Ausführungszeit wächst linear mit der Datengröße",
+        "Die Ausführungszeit ist konstant und hängt nicht von der Datengröße ab",
+        "Die Ausführungszeit nimmt mit zunehmender Datengröße ab",
+        "Die Ausführungszeit ist zufällig"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Wofür werden Hashtabellen häufig verwendet?",
+      "options": [
+        "Sortieren großer Datensätze",
+        "Effizientes Speichern und Abrufen von Daten",
+        "Durchführen arithmetischer Berechnungen",
+        "Erstellen hierarchischer Strukturen"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "Wie können Kollisionen in Hashtabellen minimiert werden?",
+      "options": [
+        "Durch Erhöhung der Anzahl der Buckets",
+        "Durch Reduzierung der Datengröße",
+        "Durch Sortieren der Daten vor dem Einfügen",
+        "Durch Verwendung nur von Primzahlen in den Daten"
+      ],
+      "correct": "A"
+    }
+  ],
+  "ar": [
+    {
+      "question": "ما هي بنية البيانات؟",
+      "options": [
+        "طريقة لتخزين البيانات",
+        "نوع بيانات بدائي",
+        "مجموعة تعليمات",
+        "طريقة لحل المشاكل"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هو مثال على بنية بيانات بدائية؟",
+      "options": [
+        "مصفوفة",
+        "عدد صحيح",
+        "مكدس",
+        "طابور"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هو الخوارزمية؟",
+      "options": [
+        "بنية بيانات",
+        "مجموعة من التعليمات لحل مشكلة",
+        "لغة برمجة",
+        "نوع بيانات"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هو مثال على الخوارزمية؟",
+      "options": [
+        "فرز الفقاعات",
+        "قائمة مرتبطة",
+        "مكدس",
+        "مصفوفة"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ماذا تمثل رموز Big O؟",
+      "options": [
+        "تعقيد الوقت",
+        "بنية البيانات",
+        "حجم الذاكرة",
+        "سرعة وحدة المعالجة المركزية"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هي تقنية تقسيم الحلول؟",
+      "options": [
+        "طريقة لحل مشكلة عن طريق تقسيمها إلى مشاكل فرعية",
+        "طريقة لتخزين البيانات",
+        "نوع من الاستدعاء الذاتي",
+        "طريقة لحل مشاكل الفرز"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هو النهج القائم على القوة الغاشمة في الخوارزميات؟",
+      "options": [
+        "نهج يحاول جميع الحلول الممكنة",
+        "طريقة سريعة لحل المشكلة",
+        "نوع من بنية البيانات",
+        "طريقة للتلاعب بالبيانات"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هو الاستدعاء الذاتي في البرمجة؟",
+      "options": [
+        "تقنية تستدعي فيها الدالة نفسها",
+        "طريقة لفرز البيانات",
+        "بنية بيانات بدائية",
+        "طريقة لتخزين البيانات"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "أي مما يلي ليس بنية بيانات؟",
+      "options": [
+        "مكدس",
+        "طابور",
+        "عدد صحيح",
+        "قائمة مرتبطة"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "أين يتم استخدام بنية البيانات والخوارزميات؟",
+      "options": [
+        "أنظمة التشغيل",
+        "أنظمة قواعد البيانات",
+        "تطبيقات الويب",
+        "جميع ما سبق"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "ما هو المصفوفة؟",
+      "options": [
+        "بنية بيانات تستخدم لتخزين عناصر متعددة",
+        "مجموعة من الخوارزميات",
+        "لغة برمجة",
+        "قيمة واحدة"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "أي بنية بيانات تستخدم لتخزين عناصر متعددة في الذاكرة المتجاورة؟",
+      "options": [
+        "قائمة مرتبطة",
+        "طابور",
+        "مصفوفة",
+        "مكدس"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "ماذا يعني الترقيم الذي يبدأ من الصفر؟",
+      "options": [
+        "يتم الوصول إلى العنصر الأول في الفهرس 1",
+        "يتم الوصول إلى العنصر الأول في الفهرس 0",
+        "لا يوجد عنصر أول",
+        "يتم الوصول إلى العنصر الأول في الفهرس -1"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هي العملية التي يمكن تنفيذها للعثور على القيمة الأدنى في مصفوفة؟",
+      "options": [
+        "فرز الفقاعات",
+        "خوارزمية البحث",
+        "التكرار عبر المصفوفة ومقارنة القيم",
+        "البحث الثنائي"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "ما هو الغرض من المتغير 'minVal' في الخوارزمية للعثور على القيمة الأدنى في مصفوفة؟",
+      "options": [
+        "لتخزين القيمة الأعلى",
+        "لتخزين القيمة الأولى",
+        "لتخزين القيمة الأدنى المكتشفة حتى الآن",
+        "لتتبع موضع العنصر الحالي"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "ما هو الكود الوهمي (Pseudocode)؟",
+      "options": [
+        "كود يمكن تشغيله مباشرة على أي جهاز كمبيوتر",
+        "وصف عالي المستوى لخوارزمية باستخدام مزيج من اللغة البشرية وعناصر البرمجة",
+        "لغة برمجة",
+        "كود معين يستخدم في الفرز"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هي القائمة المرتبطة؟",
+      "options": [
+        "نوع من الخوارزميات",
+        "بنية بيانات خطية حيث ترتبط العناصر ببعضها باستخدام المؤشرات",
+        "مصفوفة ذات حجم ثابت",
+        "بنية بيانات حيث يتم تخزين العناصر بشكل متجاور في الذاكرة"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هي الفائدة الكبرى من استخدام القوائم المرتبطة؟",
+      "options": [
+        "يتم تخزين العناصر بشكل متجاور في الذاكرة",
+        "يمكن إدراج أو حذف العناصر دون الحاجة إلى نقل العناصر الأخرى",
+        "لديها حجم ثابت",
+        "تستهلك ذاكرة أقل من المصفوفات"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هو الطابور؟",
+      "options": [
+        "هيكل بيانات مشابه للمكدس",
+        "بنية بيانات تتبع مبدأ الأول دخولاً هو الأول خروجاً (FIFO)",
+        "بنية بيانات حيث ترتبط العناصر ببعضها",
+        "قائمة عشوائية من العناصر"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "أي عملية أساسية تزيل وتعيد العنصر الأول في الطابور؟",
+      "options": [
+        "دفع (Push)",
+        "سحب (Pop)",
+        "إدراج (Enqueue)",
+        "إزالة (Dequeue)"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "أي بنية بيانات غالبًا ما تُقارن مع الطابور؟",
+      "options": [
+        "المكدس",
+        "المصفوفة",
+        "القائمة المرتبطة",
+        "الكومة"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هو الفرق بين الطابور والمكدس؟",
+      "options": [
+        "الطابور يتبع FIFO بينما المكدس يتبع LIFO",
+        "الطابور يتبع LIFO بينما المكدس يتبع FIFO",
+        "هما نفس بنية البيانات",
+        "الطابور يستخدم فقط في الرسوم البيانية"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هي عملية 'Peek' في المكدس؟",
+      "options": [
+        "تزيل العنصر العلوي",
+        "تعيد العنصر العلوي دون إزالته",
+        "تتحقق مما إذا كان المكدس فارغًا",
+        "تضيف عنصرًا جديدًا إلى المكدس"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "أي بنية بيانات تستخدم مبدأ LIFO (الأخير دخولًا هو الأول خروجًا)؟",
+      "options": [
+        "الطابور",
+        "المصفوفة",
+        "المكدس",
+        "القائمة المرتبطة"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "أي سبب لتطبيق الطوابير باستخدام المصفوفات؟",
+      "options": [
+        "حجم ثابت",
+        "حجم ديناميكي",
+        "لا حاجة لنقل العناصر في عملية الإزالة",
+        "كفاءة في استخدام الذاكرة مقارنة بالقوائم المرتبطة"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "ما هو العيب في استخدام المصفوفات لتطبيق الطوابير؟",
+      "options": [
+        "المصفوفات لا تدعم عمليات الطوابير",
+        "عملية الإزالة تتطلب نقل العناصر",
+        "المصفوفات ذات حجم ديناميكي",
+        "المصفوفات أبطأ من القوائم المرتبطة"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "أي عملية تضيف عنصرًا جديدًا إلى المكدس؟",
+      "options": [
+        "سحب (Pop)",
+        "دفع (Push)",
+        "إزالة (Peek)",
+        "إزالة (Dequeue)"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "أي من التالي ليس عملية أساسية في الطابور؟",
+      "options": [
+        "إدراج (Enqueue)",
+        "إزالة (Dequeue)",
+        "دفع (Push)",
+        "إزالة (Peek)"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "أي بنية بيانات يمكن استخدامها لتطبيق آلية التراجع (Undo) في البرامج؟",
+      "options": [
+        "الطابور",
+        "القائمة المرتبطة",
+        "المكدس",
+        "المصفوفة"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "ما هي فائدة استخدام القوائم المرتبطة لتطبيق المكدسات؟",
+      "options": [
+        "حجم ديناميكي ولا حاجة لنقل العناصر",
+        "حجم ثابت",
+        "أكثر كفاءة في استخدام الذاكرة",
+        "أسهل في التنفيذ"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هي الجدول التجزيئي (Hash Table)؟",
+      "options": [
+        "بنية بيانات تستخدم لتخزين كميات كبيرة من البيانات بسرعة",
+        "طريقة لفرز البيانات",
+        "نوع من القائمة المرتبطة",
+        "نوع بيانات بدائي"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هو الغرض من دالة التجزئة في الجدول التجزيئي؟",
+      "options": [
+        "لمقارنة جميع العناصر في القائمة",
+        "للعثور مباشرة على مكان تخزين أو استرجاع البيانات",
+        "لفرز البيانات في الجدول التجزيئي",
+        "لتقليل حجم البيانات"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ماذا يمثل رمز التجزئة (Hash Code)؟",
+      "options": [
+        "القيمة الدقيقة للعنصر",
+        "مفتاح فريد يستخدم لتحديد العنصر في الجدول التجزيئي",
+        "فهرس العنصر التالي",
+        "حجم بنية البيانات"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هي المشكلة التي تحدث عندما يكون لعناصر مختلفة نفس رمز التجزئة؟",
+      "options": [
+        "خطأ في بناء الجملة",
+        "زيادة في الذاكرة",
+        "تصادم",
+        "تكرار"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "أي تقنية تُستخدم لحل التصادمات في الجدول التجزيئي؟",
+      "options": [
+        "البحث الثنائي",
+        "التسلسل (Chaining)",
+        "التكرار",
+        "عملية باقي القسمة (Modulo)"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هي عملية باقي القسمة (%) في دالة التجزئة؟",
+      "options": [
+        "تقسيم العناصر إلى أجزاء منفصلة",
+        "إرجاع باقي القسمة",
+        "إيجاد أكبر عنصر",
+        "تحويل الأحرف إلى أرقام"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "في المثال، أين يتم تخزين 'Bob' في الجدول التجزيئي؟",
+      "options": [
+        "الفهرس 0",
+        "الفهرس 3",
+        "الفهرس 5",
+        "الفهرس 9"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "ما هو الفائدة الأساسية من استخدام الجدول التجزيئي بدلاً من المصفوفات أو القوائم المرتبطة؟",
+      "options": [
+        "أكثر كفاءة في استخدام الذاكرة",
+        "الوصول وتعديل البيانات بسرعة أكبر",
+        "يمكن تخزين أنواع أكثر من البيانات",
+        "أسهل في التنفيذ"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هو التسلسل (Chaining) في الجدول التجزيئي؟",
+      "options": [
+        "طريقة لتسريع البحث",
+        "تخزين عدة عناصر في نفس الموقع عن طريق الربط بينها",
+        "فرز العناصر قبل تخزينها",
+        "طريقة لإزالة العناصر من الجدول"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "أي من الاستخدامات التالية ليس استخدامًا شائعًا للجداول التجزيئية؟",
+      "options": [
+        "التحقق من وجود عنصر في مجموعة",
+        "تخزين عناصر فريدة",
+        "إجراء العمليات الحسابية",
+        "ربط المفاتيح بالقيم"
+      ],
+      "correct": "C"
+    },
+    {
+      "question": "ما الذي يشير إليه مصطلح 'الحاوية' (Bucket) في الجدول التجزيئي؟",
+      "options": [
+        "البنية الكاملة للبيانات",
+        "مجموعة من العناصر التي لها نفس رمز التجزئة",
+        "مولد رمز التجزئة",
+        "الخوارزمية المستخدمة في الفرز"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هو مجموعة التجزئة (Hash Set)؟",
+      "options": [
+        "بنية بيانات لتخزين أزواج المفتاح والقيمة",
+        "بنية بيانات لتخزين العناصر الفريدة بدون أزواج المفتاح والقيمة",
+        "طريقة لاكتشاف رموز التجزئة",
+        "خوارزمية لفرز العناصر"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هي خريطة التجزئة (Hash Map)؟",
+      "options": [
+        "نوع من خوارزمية الفرز",
+        "بنية بيانات لتخزين أزواج المفتاح والقيمة",
+        "مجموعة من دوال التجزئة",
+        "نوع خاص من المصفوفة"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما الفرق بين خريطة التجزئة ومجموعة التجزئة؟",
+      "options": [
+        "خريطة التجزئة تخزن أزواج المفتاح والقيمة، بينما مجموعة التجزئة تخزن المفاتيح الفريدة فقط",
+        "خريطة التجزئة أبطأ من مجموعة التجزئة",
+        "مجموعة التجزئة تحتاج إلى ذاكرة أكبر من خريطة التجزئة",
+        "هما نفس الشيء"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "أي عملية لها تعقيد زمني O(1) في المتوسط في الجداول التجزيئية؟",
+      "options": [
+        "البحث",
+        "الفرز",
+        "الإدراج",
+        "كلاً من البحث والإدراج"
+      ],
+      "correct": "D"
+    },
+    {
+      "question": "ماذا يحدث أثناء التصادم في الجدول التجزيئي؟",
+      "options": [
+        "يكون للعناصر نفس رمز التجزئة وتحاول أن تُخزن في نفس الحاوية",
+        "تُزال العناصر من الجدول",
+        "يتم تغيير حجم الجدول تلقائيًا",
+        "تبدل العناصر مواقعها"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ما هو العنوان المفتوح (Open Addressing) في الجداول التجزيئية؟",
+      "options": [
+        "طريقة لمعالجة التصادمات عن طريق إيجاد حاوية أخرى لتخزين العنصر",
+        "طريقة لتجزئة البيانات بكفاءة أكبر",
+        "طريقة لفرز العناصر",
+        "طريقة لإزالة العناصر من الجدول"
+      ],
+      "correct": "A"
+    },
+    {
+      "question": "ماذا يعني تعقيد زمني O(1)؟",
+      "options": [
+        "يتم زيادة وقت التشغيل بشكل خطي مع حجم البيانات",
+        "يكون وقت التشغيل ثابتًا ولا يعتمد على حجم البيانات",
+        "يقل وقت التشغيل كلما زاد حجم البيانات",
+        "يكون وقت التشغيل عشوائيًا"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "ما هي الجداول التجزيئية تُستخدم عادةً من أجل؟",
+      "options": [
+        "فرز مجموعات كبيرة من البيانات",
+        "تخزين البيانات واسترجاعها بكفاءة",
+        "إجراء العمليات الحسابية",
+        "بناء هياكل هرمية"
+      ],
+      "correct": "B"
+    },
+    {
+      "question": "كيف يمكن تقليل التصادمات في الجداول التجزيئية؟",
+      "options": [
+        "بزيادة عدد الحاويات",
+        "بتقليل حجم البيانات",
+        "بفرز البيانات قبل إدراجها",
+        "باستخدام الأعداد الأولية فقط في البيانات"
+      ],
+      "correct": "A"
+    }
+  ]
+}

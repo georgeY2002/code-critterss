@@ -1,0 +1,791 @@
+<!--
+  #%L
+  Code Critters
+  %%
+  Copyright (C) 2019 - 2024 Michael Gruber
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+  <!doctype html>
+  <html>
+  
+  <head>
+    <meta charset="UTF-8">
+
+      <title>Code Critters - Data Structures and Algorithms</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+      <script type=module src="critter_components/critter-level-selector/critter-level-selector.js"></script>
+      <script type=module src="critter_components/critter-header/critter-header.js"></script>
+      <script type=module src="critter_components/critter-translator/critter-translator-escaped.js"></script>
+      <script type=module src="critter_components/critter-copyright/critter-copyright.js"></script>
+      <script type=module src="critter_components/Critter-SideBar/Critter-SideBar.js"></script>
+  
+  
+      <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> 
+  
+      <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.9em;
+            margin: 0;
+            background-color: #f4f6f9;
+        }
+        /* Sidebar Styles */
+        .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 220px;
+                background-color: #ffffff; /* White background */
+                color: #000000; /* Black text */
+                padding: 20px;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar img {
+                width: 80%;
+                border-radius: 50%;
+                border: 3px solid #ffa600; /* Orange accent color */
+                margin-bottom: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar h6 {
+                color: #000000; /* Black text */
+                margin-bottom: 10px;
+                font-size: 1.1em;
+            }
+
+            .sidebar a {
+                display: flex;
+                align-items: center;
+                color: #000000; /* Black text */
+                padding: 10px 20px;
+                width: 100%;
+                text-decoration: none;
+                font-size: 1.1em;
+                border-radius: 8px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+            .sidebar a:hover {
+                background-color: #ffa600; /* Orange hover background */
+                color: #ffffff; /* White text on hover */
+            }
+
+            .sidebar i {
+                margin-right: 10px;
+            }
+            #copyright {
+                color: white;
+                background-color: rgb(57, 58, 61);
+                font-size: 1.2em;
+                padding: 2%;
+            }
+
+            .sidebar .active {
+                background-color: #ffa600; /* Active link background */
+                color: #ffffff; /* White text for active link */
+            }
+
+        .content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        .content1 {
+            margin-left: 10px;
+            padding: 15px;
+        }
+
+        #quiz-section {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .scraped-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .gamified-title {
+            font-size: 2.5em;
+            color: #007bff;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+        }
+
+        .gamified-box {
+            padding: 30px;
+            border: 3px solid #007bff;
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px rgba(0, 123, 255, 0.3);
+            background-color: #f7f9fc;
+            margin-top: 20px;
+        }
+
+        .gamified-btn {
+            background-color: #ff9800;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            border-radius: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            margin-left: 312px;
+        }
+
+        .gamified-btn:hover {
+            background-color: #f57c00;
+            transform: scale(1.1);
+            box-shadow: 0px 0px 10px rgba(245, 124, 0, 0.7);
+        }
+
+        .choices {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .choices li {
+            margin-bottom: 10px;
+        }
+
+        .choices li button {
+            width: 50% !important;
+            padding: 15px;
+            border: none;
+            font-size: 1.1em;
+            transition: 0.3s;
+        }
+
+        .choices li button:hover {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        #popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            display: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: popUp 0.5s ease-out;
+        }
+
+        .popup.correct {
+            border-color: green;
+        }
+
+        .popup.incorrect {
+            border-color: red;
+        }
+
+        .popup h3 {
+            margin: 0;
+            color: #007bff;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .popup.correct h3 {
+            color: green;
+        }
+
+        .popup.incorrect h3 {
+            color: red;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .progress-bar-container {
+            margin-top: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 30px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #007bff;
+            transition: width 0.5s;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            color: #007bff;
+            margin-top: 10px;
+        }
+    </style>
+  </head>
+  
+  <div class="sidebar">
+    <!-- Profile Picture -->
+    <a href="/Avatars.html" class="no-hover">
+        <img id="profile-picture" src="character Background Removed.png" alt="Profile Picture">
+    </a>
+
+    <!-- Links with icons and critter-translator-escaped -->
+    <a href="/index.html">
+        <i class="fa fa-home"></i>
+        <h6><b><critter-translator-escaped key="Home"></critter-translator-escaped></b></h6>
+    </a>
+    <a href="/profile.html" >
+        <i class="fa fa-user"></i>
+        <h6><b><critter-translator-escaped key="Profile"></critter-translator-escaped></b></h6>
+    </a>
+    <a href="/courses.html" class="active">
+        <i class="fa fa-book"></i>
+        <h6><b><critter-translator-escaped key="Courses"></critter-translator-escaped></b></h6>
+    </a>
+    <a href="/EnrolledCourses.html">
+        <i class="fa fa-list-alt"></i>
+        <h6><b><critter-translator-escaped key="Enrolled Courses"></critter-translator-escaped></b></h6>
+    </a>
+    <a href="/MyPoints.html">
+        <i class="fa fa-star"></i>
+        <h6><b><critter-translator-escaped key="My Points"></critter-translator-escaped></b></h6>
+    </a>
+    <a href="/DashBoard.html">
+        <i class="fa fa-star"></i>
+        <h6><b><critter-translator-escaped key="Dashboard"></critter-translator-escaped></b></h6>
+    </a>
+</div>
+  <div class="content">
+      <div class="row" id="header_row">
+          <div class="col-sm-12">
+              <critter-header></critter-header>
+              <hr>
+          </div>
+      </div>
+  
+  <body>
+      <div class="content1">
+        <!-- Section for displaying the scraped algorithm content -->
+    <!-- Language Selection Dropdown -->
+    <div class="row">
+        <div class="col-sm-12">
+            <label for="language-select">Select Language:</label>
+            <select id="language-select" class="form-control" style="width: auto; display: inline-block;" onchange="fetchScrapedContent()">
+                <option value="EN">English</option>
+                <option value="DE">German</option>
+                <option value="AR">Arabic</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Section for displaying the scraped algorithm content -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Hash Tables Content</h2>
+            <div id="algo-content" class="scraped-content">
+                Loading Hash Tables content...
+            </div>
+        </div>
+    </div>
+
+    <!-- Add the button to download the PDF below the content -->
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="download-button" class="btn btn-success" onclick="downloadPdf()">
+                <critter-translator-escaped key="Download DSA Introduction Content as PDF"></critter-translator-escaped>
+            </button>            </div>
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS (optional but useful for Bootstrap components) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+<!-- Include Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
+<!-- Include Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!-- Your custom JavaScript code -->
+<script>
+    // Function to fetch and display the scraped content based on selected language
+    async function fetchScrapedContent() {
+        try {
+            // Get the selected language from the dropdown
+            const lang = document.getElementById('language-select').value;
+
+            // Display a loading message while fetching the content
+            document.getElementById('algo-content').innerHTML = 'Loading Hash Tables content...';
+
+            // Fetch the content from the API endpoint with the selected language
+            const response = await fetch('/api/webscraping/hash/scrape?lang=' + lang);
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Get the content from the response
+            const content = await response.text();
+            
+            // Insert the fetched content into the element
+            const contentElement = document.getElementById('algo-content');
+            contentElement.innerHTML = content;
+            contentElement.setAttribute('lang', lang.toLowerCase());
+
+            // Adjust text direction for RTL languages
+            if (lang.toUpperCase() === 'AR') {
+                contentElement.style.direction = 'rtl';
+                contentElement.style.textAlign = 'right';
+            } else {
+                contentElement.style.direction = 'ltr';
+                contentElement.style.textAlign = 'left';
+            }
+        } catch (error) {
+            // Log the error and display an error message on the page
+            console.error('Error fetching scraped content:', error);
+            document.getElementById('algo-content').innerHTML = 'Error loading Hash Tables content.';
+        }
+    }
+
+    // Trigger the fetchScrapedContent function when the page content has fully loaded
+    document.addEventListener('DOMContentLoaded', fetchScrapedContent);
+
+    // Function to trigger the PDF download with the selected language
+    function downloadPdf() {
+        // Get the selected language from the dropdown
+        const lang = document.getElementById('language-select').value;
+
+        // Create an anchor element for triggering the download
+        const link = document.createElement('a');
+        link.href = '/api/webscraping/hash/download-pdf?lang=' + lang;  // PDF download endpoint with language parameter
+        link.setAttribute('download', 'hash_table_content_' + lang + '.pdf'); // Suggested filename
+
+        // Append the link to the body
+        document.body.appendChild(link);
+
+        // Trigger the download by clicking the link
+        link.click();
+
+        // Clean up by removing the anchor element after download
+        document.body.removeChild(link);
+    }
+</script>
+
+           <!-- Button for starting the quiz -->
+    <!-- Button for starting the quiz -->
+    <div class="row text-center">
+        <button id="start-quiz" class="gamified-btn">
+            <critter-translator-escaped key="Test your skills with Quizzes"></critter-translator-escaped>
+        </button>    </div>
+
+    <!-- Quiz Section -->
+    <div class="row" id="quiz-section" style="display:none;">
+        <div class="col-sm-12">
+            <!-- Language Selection Dropdown (Moved Above the Quiz Title) -->
+            <div class="language-selection">
+                <label for="language-dropdown">Select Language:</label>
+                <select id="language-dropdown">
+                    <option value="en">English</option>
+                    <option value="ar">Arabic</option>
+                    <option value="de">German</option>
+                </select>
+            </div>
+
+            <h2 class="gamified-title">
+                <critter-translator-escaped key="Quiz Time!"></critter-translator-escaped>
+            </h2>
+                        
+            <div id="quiz-content" class="scraped-content gamified-box">
+                <p id="question-text"></p>
+                <ul class="choices" id="choices-list" style="list-style-type: none; padding: 0;"></ul>
+                <button id="next-question" class="btn btn-success gamified-btn" style="display:none;">Next Question</button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <p class="progress-text" id="progress-text">Question 1 of 5</p>
+        </div>
+    </div>
+
+    <!-- Popup for feedback -->
+    <div id="popup" class="popup">
+        <h3 id="popup-message"></h3>
+    </div>
+
+        <hr>
+    </div>
+    <div class="content">
+
+    <div class="row">
+        <div class="col-sm-12" id="copyright">
+            <critter-copyright></critter-copyright>
+        </div>
+    </div>
+
+    </div>
+
+    </div>
+</div>
+
+<script>
+    let currentQuestionIndex = 0;
+    let currentLanguage = 'en'; // Default language
+    const questions = [
+    {
+        question: {
+            en: 'What is the main advantage of using a Hash Table over an Array?',
+            ar: 'ما هو الميزة الرئيسية لاستخدام جدول التجزئة بدلاً من المصفوفة؟',
+            de: 'Was ist der Hauptvorteil der Verwendung einer Hashtabelle gegenüber einem Array?'
+        },
+        choices: [
+            {
+                en: 'Faster access, insertion, and deletion of data',
+                ar: 'الوصول، الإدراج، والحذف بشكل أسرع للبيانات',
+                de: 'Schnellerer Zugriff, Einfügen und Löschen von Daten'
+            },
+            {
+                en: 'Uses less memory',
+                ar: 'يستخدم ذاكرة أقل',
+                de: 'Verbraucht weniger Speicher'
+            },
+            {
+                en: 'Stores more elements',
+                ar: 'يخزن المزيد من العناصر',
+                de: 'Speichert mehr Elemente'
+            },
+            {
+                en: 'No collisions occur',
+                ar: 'لا تحدث تصادمات',
+                de: 'Es gibt keine Kollisionen'
+            }
+        ],
+        correct: 0
+    },
+    {
+        question: {
+            en: 'What is the purpose of a hash function in a Hash Table?',
+            ar: 'ما هو الغرض من وظيفة التجزئة في جدول التجزئة؟',
+            de: 'Was ist der Zweck einer Hashfunktion in einer Hashtabelle?'
+        },
+        choices: [
+            {
+                en: 'To store elements in the order they were added',
+                ar: 'لتخزين العناصر بترتيب إضافتها',
+                de: 'Um Elemente in der Reihenfolge zu speichern, in der sie hinzugefügt wurden'
+            },
+            {
+                en: 'To directly map a key to a bucket for storage',
+                ar: 'لربط المفتاح مباشرة بحاوية للتخزين',
+                de: 'Um einen Schlüssel direkt einem Bucket für die Speicherung zuzuordnen'
+            },
+            {
+                en: 'To prevent data collisions',
+                ar: 'لمنع التصادمات في البيانات',
+                de: 'Um Datenkollisionen zu verhindern'
+            },
+            {
+                en: 'To sort elements in ascending order',
+                ar: 'لترتيب العناصر بترتيب تصاعدي',
+                de: 'Um Elemente aufsteigend zu sortieren'
+            }
+        ],
+        correct: 1
+    },
+    {
+        question: {
+            en: 'What is the term used when two elements map to the same bucket in a Hash Table?',
+            ar: 'ما هو المصطلح المستخدم عندما يتم تعيين عنصرين إلى نفس الحاوية في جدول التجزئة؟',
+            de: 'Wie nennt man es, wenn zwei Elemente in einer Hashtabelle auf denselben Bucket abgebildet werden?'
+        },
+        choices: [
+            {
+                en: 'Duplication',
+                ar: 'الازدواجية',
+                de: 'Duplizierung'
+            },
+            {
+                en: 'Chaining',
+                ar: 'التسلسل',
+                de: 'Verkettung'
+            },
+            {
+                en: 'Hash collision',
+                ar: 'تصادم التجزئة',
+                de: 'Hash-Kollision'
+            },
+            {
+                en: 'Overflow',
+                ar: 'الفيض',
+                de: 'Überlauf'
+            }
+        ],
+        correct: 2
+    },
+    {
+        question: {
+            en: 'Which method is used to resolve collisions in a Hash Table using linked lists or arrays?',
+            ar: 'أي طريقة تُستخدم لحل التصادمات في جدول التجزئة باستخدام القوائم المرتبطة أو المصفوفات؟',
+            de: 'Welche Methode wird verwendet, um Kollisionen in einer Hashtabelle mit verketteten Listen oder Arrays zu lösen?'
+        },
+        choices: [
+            {
+                en: 'Open Addressing',
+                ar: 'العنوان المفتوح',
+                de: 'Offene Adressierung'
+            },
+            {
+                en: 'Linear Probing',
+                ar: 'التنقيب الخطي',
+                de: 'Lineares Sondieren'
+            },
+            {
+                en: 'Chaining',
+                ar: 'التسلسل',
+                de: 'Verkettung'
+            },
+            {
+                en: 'Double Hashing',
+                ar: 'التجزئة المزدوجة',
+                de: 'Doppelte Hashing'
+            }
+        ],
+        correct: 2
+    },
+    {
+        question: {
+            en: 'What is a bucket in the context of a Hash Table?',
+            ar: 'ما هي الحاوية في سياق جدول التجزئة؟',
+            de: 'Was ist ein Bucket im Zusammenhang mit einer Hashtabelle?'
+        },
+        choices: [
+            {
+                en: 'A group of hash functions',
+                ar: 'مجموعة من دوال التجزئة',
+                de: 'Eine Gruppe von Hash-Funktionen'
+            },
+            {
+                en: 'A slot in memory where a value is stored',
+                ar: 'فتحة في الذاكرة حيث يتم تخزين القيمة',
+                de: 'Ein Speicherplatz, in dem ein Wert gespeichert wird'
+            },
+            {
+                en: 'The result of a hash function',
+                ar: 'نتيجة دالة التجزئة',
+                de: 'Das Ergebnis einer Hash-Funktion'
+            },
+            {
+                en: 'A sorted list of keys',
+                ar: 'قائمة مرتبة من المفاتيح',
+                de: 'Eine sortierte Liste von Schlüsseln'
+            }
+        ],
+        correct: 1
+    }
+];
+
+
+    // Event Listener for Start Quiz Button
+    document.getElementById('start-quiz').addEventListener('click', function() {
+        document.getElementById('quiz-section').style.display = 'block';
+        loadQuestion();
+    });
+
+    // Event Listener for Next Question Button
+    document.getElementById('next-question').addEventListener('click', function() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+            document.getElementById('next-question').style.display = 'none';
+        } else {
+            displayCompletionMessage();
+        }
+    });
+
+    // Event Listener for Language Dropdown
+    document.getElementById('language-dropdown').addEventListener('change', function() {
+        currentLanguage = this.value;
+        loadQuestion();
+    });
+
+    // Function to Load a Question
+    function loadQuestion() {
+        const questionObj = questions[currentQuestionIndex];
+        const questionText = questionObj.question[currentLanguage];
+        document.getElementById('question-text').innerHTML = questionText;
+
+        const choicesList = document.getElementById('choices-list');
+        choicesList.innerHTML = '';
+
+        questionObj.choices.forEach((choice, index) => {
+            const li = document.createElement('li');
+            li.style.marginBottom = '10px';
+
+            const button = document.createElement('button');
+            button.className = 'gamified-btn btn-secondary';
+            button.style.width = '100%';
+            button.innerHTML = choice[currentLanguage];
+            button.addEventListener('click', () => checkAnswer(index));
+
+            li.appendChild(button);
+            choicesList.appendChild(li);
+        });
+
+        updateProgress();
+
+        // Set font and direction based on language
+        const quizContent = document.getElementById('quiz-content');
+        if (currentLanguage === 'ar') {
+            quizContent.style.fontFamily = 'Arial, sans-serif';
+            quizContent.style.direction = 'rtl';
+            quizContent.style.textAlign = 'right';
+        } else {
+            quizContent.style.fontFamily = '';
+            quizContent.style.direction = 'ltr';
+            quizContent.style.textAlign = 'left';
+        }
+
+        // Update 'Next Question' button text based on language
+        const nextBtn = document.getElementById('next-question');
+        if (currentLanguage === 'ar') {
+            nextBtn.textContent = 'السؤال التالي';
+        } else if (currentLanguage === 'de') {
+            nextBtn.textContent = 'Nächste Frage';
+        } else {
+            nextBtn.textContent = 'Next Question';
+        }
+
+        // Update progress text based on language
+        const progressText = document.getElementById('progress-text');
+        if (currentLanguage === 'ar') {
+            progressText.innerHTML = `السؤال ${currentQuestionIndex + 1} من ${questions.length}`;
+        } else if (currentLanguage === 'de') {
+            progressText.innerHTML = `Frage ${currentQuestionIndex + 1} von ${questions.length}`;
+        } else {
+            progressText.innerHTML = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        }
+    }
+
+    // Function to Check Answer
+    function checkAnswer(selectedIndex) {
+        const questionObj = questions[currentQuestionIndex];
+        const isCorrect = selectedIndex === questionObj.correct;
+        showPopup(isCorrect);
+        if (isCorrect) {
+            setTimeout(() => {
+                document.getElementById('next-question').style.display = 'inline-block';
+            }, 500);
+        }
+    }
+
+    // Function to Show Popup Feedback
+    function showPopup(isCorrect) {
+        const popup = document.getElementById('popup');
+        const message = document.getElementById('popup-message');
+
+        if (isCorrect) {
+            popup.className = 'popup correct';
+            if (currentLanguage === 'ar') {
+                message.innerHTML = 'صحيح! أحسنت!';
+            } else if (currentLanguage === 'de') {
+                message.innerHTML = 'Richtig! Gut gemacht!';
+            } else {
+                message.innerHTML = 'Correct! Well done!';
+            }
+        } else {
+            popup.className = 'popup incorrect';
+            if (currentLanguage === 'ar') {
+                message.innerHTML = 'خطأ. حاول مرة أخرى!';
+            } else if (currentLanguage === 'de') {
+                message.innerHTML = 'Falsch. Versuchen Sie es noch einmal!';
+            } else {
+                message.innerHTML = 'Incorrect. Try again!';
+            }
+        }
+
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 2000);
+    }
+
+    // Function to Update Progress Bar and Text
+    function updateProgress() {
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+        progressBar.style.width = progress + '%';
+    }
+
+    // Function to Display Completion Message
+    function displayCompletionMessage() {
+        const quizContent = document.getElementById('quiz-content');
+        const progressBarContainer = document.querySelector('.progress-bar-container');
+        const languageSelection = document.querySelector('.language-selection');
+        quizContent.innerHTML = '';
+
+        const message = document.createElement('h3');
+        if (currentLanguage === 'ar') {
+            message.innerHTML = 'مبروك! لقد أكملت الاختبار!';
+        } else if (currentLanguage === 'de') {
+            message.innerHTML = 'Herzlichen Glückwunsch! Sie haben das Quiz abgeschlossen!';
+        } else {
+            message.innerHTML = 'Congratulations! You completed the quiz!';
+        }
+
+        quizContent.appendChild(message);
+
+        // Optionally hide progress bar and language selection
+        progressBarContainer.style.display = 'none';
+        languageSelection.style.display = 'none';
+    }
+</script>
+    <script>
+    // Check if a selected avatar exists in localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+        const profilePicture = document.getElementById('profile-picture');
+        const storedAvatar = localStorage.getItem('selectedAvatar');
+
+        if (storedAvatar) {
+            const avatarData = JSON.parse(storedAvatar);
+            profilePicture.src = avatarData.src;
+        }
+    });
+</script>
+</body>
+
+</html>

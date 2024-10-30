@@ -1,0 +1,727 @@
+<!--
+  #%L
+  Code Critters
+  %%
+  Copyright (C) 2019 - 2024 Michael Gruber
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code Critters - My Points</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Important Imports -->
+    <script src="/lib/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <!-- Custom Components -->
+    <script type="module" src="critter_components/critter-header/critter-header.js"></script>
+    <script type="module" src="critter_components/critter-translator/critter-translator-escaped.js"></script>
+    <script type="module" src="critter_components/critter-badges/critter-badges.js"></script>
+    <!-- Correct Import for the Copyright -->
+    <script type="module" src="critter_components/critter-copyright/critter-copyright.js"></script>
+    <script type=module src="critter_components/Critter-SideBar/Critter-SideBar.js"></script>
+
+
+    <!-- Include GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.2/gsap.min.js"></script>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="/path/to/font-awesome/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.9em;
+            margin: 0;
+            background-color: #f4f6f9;
+        }
+        .no-hover:hover {
+    /* Reset properties that are changed on hover */
+    background-color: transparent !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    /* Add any other properties that are affected by hover */
+}
+   /* Sidebar Styles */
+   .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 220px;
+                background-color: #ffffff; /* White background */
+                color: #000000; /* Black text */
+                padding: 20px;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar img {
+                width: 80%;
+                border-radius: 50%;
+                border: 3px solid #ffa600; /* Orange accent color */
+                margin-bottom: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar h6 {
+                color: #000000; /* Black text */
+                margin-bottom: 10px;
+                font-size: 1.1em;
+            }
+
+            .sidebar a {
+                display: flex;
+                align-items: center;
+                color: #000000; /* Black text */
+                padding: 10px 20px;
+                width: 100%;
+                text-decoration: none;
+                font-size: 1.1em;
+                border-radius: 8px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+            .sidebar a:hover {
+                background-color: #ffa600; /* Orange hover background */
+                color: #ffffff; /* White text on hover */
+            }
+
+            .sidebar i {
+                margin-right: 10px;
+            }
+
+            .sidebar .active {
+                background-color: #ffa600; /* Active link background */
+                color: #ffffff; /* White text for active link */
+            }
+
+
+
+        /* Content */
+        .content {
+            margin-left: 240px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(54, 162, 235, 0.9), rgba(255, 99, 132, 0.9));
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        /* Header Row */
+        #header_row {
+            background-color: transparent;
+        }
+
+        hr {
+            color: #ffa600;
+            background-color: #ffa600;
+            height: 3px;
+            margin: 0;
+        }
+
+        h6 {
+            color: #ffa600;
+        }
+
+        /* My Points Section */
+        .my-points-section {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .my-points-section h2 {
+            font-size: 3em;
+            color: #ffa600;
+            margin-bottom: 20px;
+            animation: slideInFromLeft 1s forwards;
+        }
+
+        .points-display {
+            font-size: 6em;
+            font-weight: bold;
+            color: #fff;
+            display: inline-block;
+            position: relative;
+            animation: bounceIn 1s;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Progress Bar */
+       /* Progress Bar */
+.progress-bar-container {
+    width: 80%;
+    margin: 30px auto;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    height: 30px;
+    width: 0%; /* Start at 0% width */
+    background-color: red; /* Use a solid color to make it more visible */
+    border-radius: 30px;
+}
+
+
+        /* Particle Effect */
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* My Badges Section */
+        .my-badges-section {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .my-badges-section h2 {
+            font-size: 2.5em;
+            color: #ffa600;
+            margin-bottom: 40px;
+            animation: slideInFromRight 1s forwards;
+        }
+
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge-card {
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            margin: 20px;
+            box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.2),
+                        inset 5px 5px 15px rgba(255, 255, 255, 0.5),
+                        0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            cursor: pointer;
+            animation: bounceIn 1s;
+        }
+
+        .badge-card:hover {
+            transform: rotateY(20deg) rotateX(20deg);
+        }
+
+        .badge-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+        }
+
+        .badge-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            backface-visibility: hidden;
+        }
+
+        /* Enroll in Courses Section */
+        .enroll-section {
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enroll-section h2 {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #ffa600;
+            font-size: 2.5em;
+            animation: slideInFromLeft 1s forwards;
+        }
+
+        .small-course-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .small-course-card {
+            width: 200px;
+            height: 240px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            margin: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            color: #333;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s;
+        }
+
+        .small-course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .small-course-card::before,
+        .small-course-card::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+        }
+
+        .small-course-card::before {
+            top: -40px;
+            right: -40px;
+        }
+
+        .small-course-card::after {
+            bottom: -40px;
+            left: -40px;
+            animation-direction: reverse;
+        }
+
+        .small-course-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+
+        .small-course-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .small-course-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            color: #ffa600;
+        }
+
+        .small-course-card .btn-enroll-small {
+            background-color: #ffa600;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.9em;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .small-course-card .btn-enroll-small i {
+            margin-right: 5px;
+        }
+
+        .small-course-card .btn-enroll-small:hover {
+            background-color: #ff6f00;
+            transform: translateY(-5px);
+        }
+
+        /* Footer Styles */
+        h6 {
+            color: #ffa600;
+        }
+
+        /* Include the CSS for the copyright */
+        #copyright {
+            color: white;
+            background-color: rgb(57, 58, 61);
+            font-size: 1.2em;
+            padding: 2%;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+
+            70% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes loadProgress {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 80%; /* Adjust to represent progress towards next level */
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content {
+                margin-left: 0;
+                padding: 10px;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 10px;
+            }
+
+            .sidebar img {
+                width: 50px;
+                margin-bottom: 0;
+            }
+
+            .sidebar h6 {
+                display: none;
+            }
+
+         
+
+            .my-points-section h2,
+            .my-badges-section h2,
+            .enroll-section h2 {
+                font-size: 2em;
+            }
+
+            .points-display {
+                font-size: 3em;
+            }
+
+            .badge-card {
+                width: 120px;
+                height: 120px;
+            }
+
+            .small-course-card {
+                width: 150px;
+                height: 200px;
+            }
+
+            .small-course-card img {
+                height: 80px;
+            }
+        }
+        .no-hover:hover {
+    /* Reset properties that are changed on hover */
+    background-color: transparent !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    /* Add any other properties that are affected by hover */
+}
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <!-- Profile Picture -->
+        <a href="/Avatars.html" class="no-hover">
+            <img id="profile-picture" src="character Background Removed.png" alt="Profile Picture">
+        </a>
+
+        <!-- Links with icons and critter-translator-escaped -->
+        <a href="/index.html">
+            <i class="fa fa-home"></i>
+            <h6><b><critter-translator-escaped key="Home"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/profile.html" >
+            <i class="fa fa-user"></i>
+            <h6><b><critter-translator-escaped key="Profile"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/courses.html">
+            <i class="fa fa-book"></i>
+            <h6><b><critter-translator-escaped key="Courses"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/EnrolledCourses.html">
+            <i class="fa fa-list-alt"></i>
+            <h6><b><critter-translator-escaped key="Enrolled Courses"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/MyPoints.html"  class="active">
+            <i class="fa fa-star"></i>
+            <h6><b><critter-translator-escaped key="My Points"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/DashBoard.html">
+            <i class="fa fa-star"></i>
+            <h6><b><critter-translator-escaped key="Dashboard"></critter-translator-escaped></b></h6>
+        </a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Header -->
+        <div class="row" id="header_row">
+            <div class="col-sm-12">
+                <critter-header></critter-header>
+                <hr>
+            </div>
+        </div>
+        <!-- My Points Section -->
+        <div class="my-points-section">
+            <h2><critter-translator-escaped key="My Points"></critter-translator-escaped></h2>
+            <div class="points-display" id="pointsDisplay">Zero Points</div> <!-- Default value -->
+            <!-- Progress Bar -->
+            <div class="progress-bar-container" style="background-color: #f3f3f3; border-radius: 5px; width: 100%; height: 20px; margin-top: 10px;">
+                <div class="progress-bar" id="progressBar" style="width: 0%; background-color: #ffa600; height: 100%; border-radius: 5px;"></div> <!-- Start at 0% -->
+            </div>
+        </div>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                fetchUserPoints();
+            });
+        
+            function fetchUserPoints() {
+                fetch('http://localhost:8080/users/me', {
+                    credentials: 'include' // Ensure cookies are included in the request
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user info');
+                    }
+                    return response.json();
+                })
+                .then(user => {
+                    const points = Number(user.points); // Ensure points are a number
+                    updatePointsDisplay(points); // Update points display
+                    updateProgressBar(points); // Update the progress bar with actual points
+                })
+                .catch(error => {
+                    console.error('Error fetching user points:', error);
+                    alert('Failed to fetch user points. Please try again later.');
+                });
+            }
+        
+            function updatePointsDisplay(points) {
+                const pointsDisplay = document.getElementById("pointsDisplay");
+                pointsDisplay.textContent = points; // Update the points display with the fetched value
+            }
+        
+            function updateProgressBar(points) {
+                const progressBar = document.getElementById("progressBar");
+                
+                // Assuming the max points is 1000, adjust this as necessary
+                const maxPoints = 5000;
+                const percentage = (points / maxPoints) * 100; // Calculate percentage
+                
+                // Set the width of the progress bar based on the user's points
+                progressBar.style.width = `${percentage}%`;
+            }
+        </script>
+        
+
+
+        
+     <!-- My Badges Section -->
+<div class="my-badges-section">
+    <h2><critter-translator-escaped key="My Badges"></critter-translator-escaped></h2>
+    <div class="badges-container">
+        <!-- Badge Cards -->
+        <div class="badge-card" style="animation-delay: 0.2s; display: none;" id="badge-1">
+            <img src="Achievement Icons - Trophy Background Removed.png" alt="Badge 1">
+        </div>
+        <div class="badge-card" style="animation-delay: 0.4s; display: none;" id="badge-2">
+            <img src="Achievements Background Removed.png" alt="Badge 2">
+        </div>
+        <div class="badge-card" style="animation-delay: 0.6s; display: none;" id="badge-3">
+            <img src="Medal Background Removed.png" alt="Badge 3">
+        </div>
+        <div class="badge-card" style="animation-delay: 0.8s; display: none;" id="badge-4">
+            <img src="Flat Crown Background Removed.png" alt="Badge 4">
+        </div>
+        <div class="badge-card" style="animation-delay: 1s; display: none;" id="badge-5">
+            <img src="Trophy Background Removed.png" alt="Badge 5">
+        </div>
+    </div>
+</div>
+
+        <!-- Enroll in Courses Section -->
+        <div class="enroll-section">
+            <h2><critter-translator-escaped key="Enroll in Courses"></critter-translator-escaped></h2>
+            <div class="small-course-cards">
+            
+                <!-- Small Course Card 3 -->
+                <div class="small-course-card">
+                    <img src="ds Background Removed.png" alt="Data Structures Course">
+                    <h3><critter-translator-escaped key="Data Structures Course"></critter-translator-escaped></h3>
+                    <a href="CourseEnrolled.html" class="btn-enroll-small">
+                        <i class="fa fa-sign-in"></i> 
+                        <critter-translator-escaped key="Enroll"></critter-translator-escaped>
+                    </a>
+                </div>
+                
+                <!-- Add more course cards as needed -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <hr>
+        <div class="row">
+            <div class="col-sm-12" id="footer">
+                <!-- Use the custom component -->
+                <critter-copyright></critter-copyright>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Check if a selected avatar exists in localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const profilePicture = document.getElementById('profile-picture');
+            const storedAvatar = localStorage.getItem('selectedAvatar');
+
+            if (storedAvatar) {
+                const avatarData = JSON.parse(storedAvatar);
+                profilePicture.src = avatarData.src;
+            }
+        });
+    </script>
+    <script>
+        async function fetchUserData() {
+    try {
+        const response = await fetch('http://localhost:8080/users/me');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        displayBadges(data.points);
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+}
+
+function displayBadges(points) {
+    points = parseInt(points, 10); // Convert points to integer
+
+    // Define milestones and corresponding badge IDs
+    const milestones = [
+        { points: 500, badgeId: 'badge-1' },
+        { points: 2000, badgeId: 'badge-2' },
+        { points: 3000, badgeId: 'badge-3' },
+        { points: 4000, badgeId: 'badge-4' },
+        { points: 5000, badgeId: 'badge-5' }
+    ];
+
+    // Show badges based on the points
+    milestones.forEach(milestone => {
+        if (points >= milestone.points) {
+            const badgeElement = document.getElementById(milestone.badgeId);
+            if (badgeElement) {
+                badgeElement.style.display = 'block'; // Show the badge
+            }
+        }
+    });
+}
+
+// Call the fetchUserData function on page load
+window.onload = fetchUserData;
+    </script>
+
+    
+</body>
+
+</html>

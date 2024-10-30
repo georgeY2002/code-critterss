@@ -1,0 +1,889 @@
+<!--
+  #%L
+  Code Critters
+  %%
+  Copyright (C) 2019 - 2024 Michael Gruber
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+
+  <!doctype html>
+  <html>
+  
+  <head>
+      <title>Code Critters</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="/lib/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  
+      <script type="module" src="critter_components/critter-header/critter-header.js"></script>
+      <script type="module" src="critter_components/critter-translator/critter-translator-escaped.js"></script>
+  
+      <script type="module" src="critter_components/critter-copyright/critter-copyright.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  
+      <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  
+  
+      <script>
+          function fetchEnrolledCourses() {
+              fetch('http://localhost:8080/users/me', { // Get current user info
+                  credentials: 'include' // Ensure cookies are included in the request
+              })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Failed to fetch user info');
+                      }
+                      return response.json();
+                  })
+                  .then(user => {
+                      const userId = user.id; // Assuming the user ID is in the response
+                      return fetch(`http://localhost:8080/users/${userId}/courses`, {
+                          credentials: 'include' // Ensure cookies are included in the request
+                      }); // Fetch enrolled courses
+                  })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Failed to fetch enrolled courses');
+                      }
+                      return response.json();
+                  })
+                  .then(courses => {
+                      displayEnrolledCourses(courses); // Call the function to display courses
+                  })
+                  .catch(error => {
+                      console.error('Error fetching enrolled courses:', error);
+                      alert('Failed to fetch enrolled courses. Please try again later.');
+                  });
+          }
+      </script>
+  
+  
+  
+      <custom-style>
+          <style>
+              body {
+                  font-family: 'Arial', sans-serif;
+                  font-size: 0.9em;
+                  margin: 0;
+                  background-color: #f4f6f9;
+              }
+  
+              /* Sidebar Styles */
+              .sidebar {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  height: 100%;
+                  width: 220px;
+                  background-color: #ffffff;
+                  color: #000000;
+                  padding: 20px;
+                  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+              }
+  
+              .sidebar img {
+                  width: 80%;
+                  border-radius: 50%;
+                  border: 3px solid #ffa600;
+                  margin-bottom: 20px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              }
+  
+              .sidebar h6 {
+                  color: #000000; /* Black text */
+                  margin-bottom: 10px;
+                  font-size: 1.1em;
+              }
+  
+              .sidebar a {
+                  display: flex;
+                  align-items: center;
+                  color: #000000;
+                  padding: 10px 20px;
+                  width: 100%;
+                  text-decoration: none;
+                  font-size: 1.1em;
+                  border-radius: 8px;
+                  transition: background-color 0.3s ease, color 0.3s ease;
+              }
+  
+              .sidebar a:hover {
+                  background-color: #ffa600; /* Orange hover background */
+                  color: #ffffff; /* White text on hover */
+              }
+  
+              .sidebar i {
+                  margin-right: 10px;
+              }
+  
+              .sidebar .active {
+                  background-color: #ffa600; /* Active link background */
+                  color: #ffffff; /* White text for active link */
+              }
+  
+              /* Content */
+              .content {
+                  margin-left: 240px; /* Adjusted for sidebar width */
+                  padding: 20px;
+              }
+  
+              .text {
+                  text-align: left;
+                  font-size: 1.3em;
+              }
+  
+              /* Other styles for main content */
+              #header_row {
+                  background-color: white;
+              }
+  
+              #landing_text {
+                  padding: 5% 2% 2%;
+                  background-color: #f2f2f2;
+                  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, .08);
+              }
+  
+              #level_display {
+                  padding: 2%;
+                  font-size: 1.2em;
+                  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, .08);
+              }
+  
+              #highscore {
+                  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, .08);
+                  background-color: #f2f2f2;
+                  padding: 2%;
+              }
+  
+              #project_info {
+                  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, .08);
+                  padding: 2%;
+              }
+  
+              hr {
+                  color: #ffa600;
+                  background-color: #ffa600;
+                  height: 3px;
+                  margin: 0;
+              }
+  
+              #copyright {
+                  color: white;
+                  background-color: rgb(57, 58, 61);
+                  font-size: 1.2em;
+                  padding: 2%;
+              }
+  
+              h6 {
+                  color: #ffa600;
+              }
+  
+              /* Dashboard box styles with gamified look */
+              .dashboard-box {
+                  background-color: #ffa600; /* Orange background */
+                  color: #000000; /* Black text */
+                  padding: 20px;
+                  border-radius: 15px;
+                  text-align: center;
+                  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                  position: relative;
+                  overflow: hidden;
+                  perspective: 1000px;
+                  margin-top: 80px; /* Increase top margin to move boxes down */
+                  animation: framer-animation 2s ease-in-out infinite alternate;
+              }
+  
+              .leaderboard-section {
+                  margin-top: 50px;
+                  text-align: center;
+              }
+  
+              .leaderboard-section h2 {
+                  color: #ffa600;
+                  font-size: 2em;
+                  margin-bottom: 20px;
+                  position: relative;
+                  display: inline-block;
+              }
+  
+              .leaderboard-section h2::after {
+                  content: '';
+                  position: absolute;
+                  width: 50%;
+                  height: 4px;
+                  background-color: #ffa600;
+                  bottom: -10px;
+                  left: 25%;
+                  transition: width 0.3s ease;
+              }
+  
+              .leaderboard-section h2:hover::after {
+                  width: 100%;
+                  left: 0;
+              }
+  
+              /* Enhanced Leaderboard Table Styles */
+              .table {
+                  width: 100%;
+                  max-width: 1200px;
+                  margin: 0 auto;
+                  border-collapse: collapse;
+                  animation: fadeIn 1s ease-in-out;
+              }
+  
+              .table th,
+              .table td {
+                  padding: 15px;
+                  text-align: left;
+              }
+  
+              .table th {
+                  background-color: #ffa600;
+                  color: white;
+                  font-weight: bold;
+                  position: relative;
+                  overflow: hidden;
+              }
+  
+              .table th::after {
+                  content: '';
+                  position: absolute;
+                  bottom: 0;
+                  left: 50%;
+                  width: 0;
+                  height: 3px;
+                  background-color: #ffffff;
+                  transition: width 0.3s ease, left 0.3s ease;
+              }
+  
+              .table th:hover::after {
+                  width: 100%;
+                  left: 0;
+              }
+  
+              .table td {
+                  background-color: #f4f6f9;
+                  transition: background-color 0.3s ease, transform 0.3s ease;
+              }
+  
+              .table td:hover {
+                  background-color: #ffe6cc;
+                  transform: translateX(10px);
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+              }
+  
+              .table-striped tbody tr:nth-of-type(odd) {
+                  background-color: #f2f2f2;
+              }
+  
+              .table-striped tbody tr:hover {
+                  background-color: #ffe6cc;
+              }
+  
+              /* Text styles - all text inside the box is black */
+              .dashboard-box h6,
+              .dashboard-box p {
+                  opacity: 1;
+                  color: #000000; /* Black text */
+                  transition: opacity 0.3s ease, transform 0.3s ease;
+              }
+  
+              /* Stronger hover effects for gamification */
+              .dashboard-box:hover {
+                  transform: scale(1.1) rotateY(10deg); /* 3D rotation effect */
+                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+                  background-color: #ffb733; /* Slightly lighter orange on hover */
+              }
+  
+              /* Hover effect on text */
+              .dashboard-box:hover h6,
+              .dashboard-box:hover p {
+                  transform: translateY(-5px); /* Move text up slightly */
+                  opacity: 1; /* Keep text fully visible on hover */
+                  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add text shadow */
+              }
+  
+              /* Animated background swirl on hover */
+              .dashboard-box::before {
+                  content: '';
+                  position: absolute;
+                  top: -50%;
+                  left: -50%;
+                  width: 200%;
+                  height: 200%;
+                  background: rgba(255, 255, 255, 0.2);
+                  transform: rotate(45deg);
+                  transition: all 0.6s ease;
+              }
+  
+              .dashboard-box:hover::before {
+                  top: -30%;
+                  left: -30%;
+              }
+  
+              /* Text styling */
+              .dashboard-box h6 {
+                  font-size: 1.4em;
+                  margin-bottom: 10px;
+                  font-weight: bold;
+              }
+  
+              .dashboard-box p {
+                  font-size: 1.6em;
+                  font-weight: bold;
+              }
+  
+              /* Graph container styles */
+              #loginHoursChart {
+                  background-color: #f4f6f9;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                  margin-left: -250px; /* Shift to the left */
+                  margin-top: 50px; /* Shift down */
+              }
+  
+              /* Hover effect on the chart */
+              .chartjs-render-monitor:hover {
+                  transform: scale(1.05); /* Zoom effect on hover */
+                  transition: transform 0.3s ease; /* Smooth hover effect */
+              }
+  
+  
+  
+              /* Add Framer Motion-like animation */
+              @keyframes framer-animation {
+                  0% {
+                      transform: scale(1) rotateY(0);
+                  }
+  
+                  50% {
+                      transform: scale(1.05) rotateY(5deg);
+                  }
+  
+                  100% {
+                      transform: scale(1) rotateY(0);
+                  }
+              }
+  
+              /* My Courses Section Styles */
+              .my-courses-section {
+                  padding: 50px 20px;
+                  text-align: center;
+              }
+  
+              .my-courses-section h2 {
+                  font-size: 2em;
+                  color: #ffa600;
+                  margin-bottom: 30px;
+              }
+  
+              /* Course Card Styles */
+              .course-card {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  background-color: #f4f6f9;
+                  border-radius: 15px;
+                  padding: 20px;
+                  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                  transition: transform 0.3s ease, box-shadow 0.3s ease;
+                  width: 100%;
+                  max-width: 1200px; /* Increase max width for a wider layout */
+                  margin: 20px auto; /* Added margin for spacing */
+                  animation: slideIn 0.5s ease-out forwards;
+                  opacity: 0;
+              }
+  
+              /* Animation for course cards */
+              @keyframes slideIn {
+                  from {
+                      transform: translateY(50px);
+                      opacity: 0;
+                  }
+  
+                  to {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+              }
+  
+              /* Hover effect for gamification */
+              .course-card:hover {
+                  transform: scale(1.05);
+                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+              }
+  
+              /* Course Image Styles */
+              .course-image {
+                  width: 120px; /* Increase image size for better proportion */
+                  height: 120px;
+                  border-radius: 10px;
+                  object-fit: cover;
+                  margin-right: 20px;
+                  transition: transform 0.3s ease;
+              }
+  
+              .course-card:hover .course-image {
+                  transform: rotate(10deg) scale(1.1);
+              }
+  
+              /* Course Info Styles */
+              .course-info h4 {
+                  font-size: 1.8em;
+                  color: #000000;
+                  margin: 0;
+                  font-weight: bold;
+              }
+  
+              /* View Course Button Styles */
+              .view-course-btn {
+                  background-color: #ffa600;
+                  color: #ffffff;
+                  padding: 12px 25px; /* Slightly larger button for balance */
+                  border: none;
+                  border-radius: 5px;
+                  font-size: 1.2em;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease, transform 0.3s ease;
+                  text-decoration: none;
+              }
+  
+              .view-course-btn:hover {
+                  background-color: #ffb733;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                  transform: translateY(-3px);
+              }
+  
+              /* General header style (same as MY COURSES) */
+              h2,
+              h4 {
+                  font-size: 2em; /* Same font size for consistency */
+                  color: #ffa600; /* Orange color to match the theme */
+                  text-align: center;
+                  margin-bottom: 30px;
+                  font-weight: bold;
+              }
+  
+              /* Adjustments for Total Logged-in Hours Header Style (Removed since function is removed) */
+  
+              .no-hover:hover {
+                  /* Reset properties that are changed on hover */
+                  background-color: transparent !important;
+                  color: inherit !important;
+                  text-decoration: none !important;
+                  /* Add any other properties that are affected by hover */
+              }
+  
+              /* My Badges Section Styles */
+              .my-badges-section {
+                  padding: 50px 20px;
+                  text-align: center;
+              }
+  
+              .my-badges-section h2 {
+                  font-size: 2em;
+                  color: #ffa600;
+                  margin-bottom: 30px;
+              }
+  
+              /* Badges Container */
+              .badges-container {
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: center;
+                  gap: 20px;
+              }
+  
+              /* Badge Card Styles */
+              .badge-card {
+                  background-color: #ffffff;
+                  border-radius: 15px;
+                  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                  padding: 20px;
+                  width: 150px;
+                  text-align: center;
+                  position: relative;
+                  transition: transform 0.3s ease, box-shadow 0.3s ease;
+                  animation: fadeInUp 0.5s ease-out forwards;
+                  opacity: 0;
+              }
+  
+              .badge-card img {
+                  width: 100%;
+                  height: auto;
+                  border-radius: 10px;
+              }
+  
+              .badge-card:hover {
+                  transform: scale(1.1);
+                  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+              }
+  
+              .badge-description {
+                  margin-top: 10px;
+                  font-size: 1em;
+                  color: #333333;
+                  font-weight: bold;
+              }
+  
+              /* Animation for badges */
+              @keyframes fadeInUp {
+                  from {
+                      transform: translateY(20px);
+                      opacity: 0;
+                  }
+  
+                  to {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+              }
+  
+              /* Responsive Dashboard Boxes */
+              @media (max-width: 768px) {
+                  .dashboard-box {
+                      margin-top: 20px;
+                      width: 100%;
+                  }
+  
+                  .course-card {
+                      flex-direction: column;
+                      align-items: flex-start;
+                  }
+  
+                  .course-image {
+                      margin-bottom: 15px;
+                  }
+  
+                  .badges-container {
+                      flex-direction: column;
+                      align-items: center;
+                  }
+              }
+          </style>
+  
+      </custom-style>
+  
+  </head>
+  
+  <body>
+      <div class="sidebar">
+          <!-- Profile Picture -->
+          <a href="/Avatars.html" class="no-hover">
+              <img id="profile-picture" src="character Background Removed.png" alt="Profile Picture">
+          </a>
+  
+          <!-- Links with icons and critter-translator-escaped -->
+          <a href="/index.html">
+              <i class="fa fa-home"></i>
+              <h6><b><critter-translator-escaped key="Home"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/profile.html">
+              <i class="fa fa-user"></i>
+              <h6><b><critter-translator-escaped key="Profile"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/courses.html">
+              <i class="fa fa-book"></i>
+              <h6><b><critter-translator-escaped key="Courses"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/EnrolledCourses.html">
+              <i class="fa fa-list-alt"></i>
+              <h6><b><critter-translator-escaped key="Enrolled Courses"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/MyPoints.html">
+              <i class="fa fa-star"></i>
+              <h6><b><critter-translator-escaped key="My Points"></critter-translator-escaped></b></h6>
+          </a>
+          <a href="/DashBoard.html" class="active">
+              <i class="fa fa-star"></i>
+              <h6><b><critter-translator-escaped key="Dashboard"></critter-translator-escaped></b></h6>
+          </a>
+      </div>
+  
+      <div class="content">
+          <div class="row" id="header_row">
+              <div class="col-sm-12">
+                  <critter-header></critter-header>
+                  <hr>
+              </div>
+          </div>
+  
+          <!-- Dashboard Section -->
+          <h2><critter-translator-escaped key="Dashboard"></critter-translator-escaped></h2>
+          <div class="row">
+              <!-- Box 1: Courses in Progress -->
+              <div class="col-sm-6">
+                  <div class="dashboard-box" id="coursesInProgressBox">
+                    <h6><critter-translator-escaped key="Courses in Progress"></critter-translator-escaped></h6>
+                    <p id="coursesInProgress">0 <critter-translator-escaped key="Courses"></critter-translator-escaped></p>
+                  </div>
+              </div>
+  
+              <!-- Box 2: Points -->
+              <div class="col-sm-6">
+                  <div class="dashboard-box" id="pointsBox">
+                      <h6><critter-translator-escaped key="Points"></critter-translator-escaped></h6>
+                      <p id="points">0 <critter-translator-escaped key="Points"></critter-translator-escaped></p>
+                  </div>
+              </div>
+          </div>
+  
+          <!-- My Badges Section -->
+          <div class="my-badges-section">
+              <h2><critter-translator-escaped key="My Badges"></critter-translator-escaped></h2>
+              <div class="badges-container">
+                  <!-- Badge Cards -->
+                  <div class="badge-card" style="animation-delay: 0.2s; display: none;" id="badge-1">
+                      <img src="Achievement Icons - Trophy Background Removed.png" alt="Badge 1">
+                      <div class="badge-description">Achieved 500 Points!</div>
+                  </div>
+                  <div class="badge-card" style="animation-delay: 0.4s; display: none;" id="badge-2">
+                      <img src="Achievements Background Removed.png" alt="Badge 2">
+                      <div class="badge-description">Reached 2000 Points!</div>
+                  </div>
+                  <div class="badge-card" style="animation-delay: 0.6s; display: none;" id="badge-3">
+                      <img src="Medal Background Removed.png" alt="Badge 3">
+                      <div class="badge-description">Mastered 3000 Points!</div>
+                  </div>
+                  <div class="badge-card" style="animation-delay: 0.8s; display: none;" id="badge-4">
+                      <img src="Flat Crown Background Removed.png" alt="Badge 4">
+                      <div class="badge-description">Conquered 4000 Points!</div>
+                  </div>
+                  <div class="badge-card" style="animation-delay: 1s; display: none;" id="badge-5">
+                      <img src="Trophy Background Removed.png" alt="Badge 5">
+                      <div class="badge-description">Ultimate 5000 Points!</div>
+                  </div>
+              </div>
+          </div>
+  
+          <div class="leaderboard-section">
+              <h2><critter-translator-escaped key="Leader board"></critter-translator-escaped></h2>
+              <table class="table table-striped" id="leaderboard">
+                  <thead>
+                      <tr>
+                          <th><critter-translator-escaped key="Username"></critter-translator-escaped></th>
+                          <th><critter-translator-escaped key="Email"></critter-translator-escaped></th>
+                          <th><critter-translator-escaped key="Points"></critter-translator-escaped></th>
+                      </tr>
+                  </thead>
+                  <tbody id="leaderboardBody">
+                      <!-- Users will be dynamically inserted here -->
+                  </tbody>
+              </table>
+          </div>
+  
+          <!-- My Courses Section -->
+          <div class="my-courses-section">
+              <h2><critter-translator-escaped key="MY COURSES"></critter-translator-escaped></h2>
+              <!-- Courses container to dynamically inject course cards -->
+              <div id="courses-container"></div>
+          </div>
+  
+          <hr>
+          <div class="row">
+              <div class="col-sm-12" id="copyright">
+                  <critter-copyright></critter-copyright>
+              </div>
+          </div>
+      </div>
+  
+  
+      <script>
+          document.addEventListener("DOMContentLoaded", function () {
+              fetchDashboardData();
+              fetchEnrolledCourses(); // Ensure this is called once the DOM is ready
+              fetchLeaderboard(); // Fetch leaderboard once DOM is ready
+              loadProfilePicture(); // Load avatar from localStorage
+          });
+  
+          function fetchDashboardData() {
+              // Fetch user info to get userId and points
+              fetch('http://localhost:8080/users/me', {
+                  credentials: 'include'
+              })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Failed to fetch user info');
+                      }
+                      return response.json();
+                  })
+                  .then(user => {
+                      const userId = user.id; // Use userId to fetch other dashboard data
+                      const points = user.points;
+  
+                      // Update points in the dashboard
+                      document.getElementById('points').innerHTML = points + ' <critter-translator-escaped key="Points"></critter-translator-escaped>';
+  
+                      // Fetch courses and update other sections
+                      fetchCoursesInProgress(userId);
+                      displayBadges(points); // Display badges based on points
+                  })
+                  .catch(error => {
+                      console.error('Error fetching dashboard data:', error);
+                  });
+          }
+  
+          function fetchCoursesInProgress(userId) {
+              fetch(`http://localhost:8080/users/${userId}/courses`) // Fetch all enrolled courses
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Failed to fetch enrolled courses');
+                      }
+                      return response.json();
+                  })
+                  .then(courses => {
+                      // Instead of filtering, just get the total number of courses
+                      const totalCourses = courses.length; // Count all enrolled courses
+                      document.getElementById('coursesInProgress').innerHTML = totalCourses + ' <critter-translator-escaped key="Courses"></critter-translator-escaped>';
+                  })
+                  .catch(error => {
+                      console.error('Error fetching courses in progress:', error);
+                      document.getElementById('coursesInProgress').innerText = 'Error fetching courses';
+                  });
+          }
+  
+          function fetchLeaderboard() {
+              fetch('http://localhost:8080/users/all', {
+                  credentials: 'include' // Include credentials if necessary
+              })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Failed to fetch users');
+                      }
+                      return response.json();
+                  })
+                  .then(users => {
+                      // Sort users by points from highest to lowest
+                      users.sort((a, b) => b.points - a.points);
+  
+                      // Display users in the leaderboard
+                      displayLeaderboard(users);
+                  })
+                  .catch(error => {
+                      console.error('Error fetching users for leaderboard:', error);
+                  });
+          }
+  
+          // Function to display leaderboard data
+          function displayLeaderboard(users) {
+              const leaderboardBody = document.getElementById('leaderboardBody');
+              leaderboardBody.innerHTML = ''; // Clear previous entries
+  
+              users.forEach((user, index) => {
+                  const row = `
+                      <tr>
+                          <td>${index + 1}. ${user.username}</td>
+                          <td>${user.email}</td>
+                          <td>${user.points}</td>
+                      </tr>
+                  `;
+                  leaderboardBody.innerHTML += row;
+              });
+          }
+  
+          // Function to display badges
+          function displayBadges(points) {
+              points = parseInt(points, 10); // Convert points to integer
+  
+              // Define milestones and corresponding badge IDs
+              const milestones = [
+                  { points: 500, badgeId: 'badge-1', description: 'Achieved 500 Points!' },
+                  { points: 2000, badgeId: 'badge-2', description: 'Reached 2000 Points!' },
+                  { points: 3000, badgeId: 'badge-3', description: 'Mastered 3000 Points!' },
+                  { points: 4000, badgeId: 'badge-4', description: 'Conquered 4000 Points!' },
+                  { points: 5000, badgeId: 'badge-5', description: 'Ultimate 5000 Points!' }
+              ];
+  
+              // Show badges based on the points
+              milestones.forEach(milestone => {
+                  if (points >= milestone.points) {
+                      const badgeElement = document.getElementById(milestone.badgeId);
+                      if (badgeElement) {
+                          badgeElement.style.display = 'block'; // Show the badge
+                      }
+                  }
+              });
+          }
+  
+          function loadProfilePicture() {
+              const profilePicture = document.getElementById('profile-picture');
+              const storedAvatar = localStorage.getItem('selectedAvatar');
+  
+              if (storedAvatar) {
+                  const avatarData = JSON.parse(storedAvatar);
+                  profilePicture.src = avatarData.src;
+              }
+          }
+      </script>
+  
+      <script>
+          // Function to display courses
+          function displayEnrolledCourses(courses) {
+              const coursesContainer = document.getElementById('courses-container');
+              coursesContainer.innerHTML = ''; // Clear previous content
+  
+              if (courses.length === 0) {
+                  coursesContainer.innerHTML = '<p><critter-translator-escaped key="No courses enrolled."></critter-translator-escaped></p>';
+                  return;
+              }
+  
+              courses.forEach(course => {
+                  const courseCard = `
+                      <div class="course-card">
+                          <!-- Course Image -->
+                          <img src="./ds Background Removed 2.png" alt="${course.name}" class="course-image">
+  
+                          <!-- Course Info Section -->
+                          <div class="course-info">
+                              <!-- Course Title -->
+                              <h4><critter-translator-escaped key="${course.name}"></critter-translator-escaped></h4>
+                          </div>
+  
+                          <!-- View Course Button -->
+                          <a href="./DSCoursesDetials.html" class="view-course-btn">
+                              <critter-translator-escaped key="View Course"></critter-translator-escaped>
+                          </a>
+                      </div>
+                  `;
+  
+                  // Append each courseCard to the courses container
+                  coursesContainer.innerHTML += courseCard;
+              });
+          }
+  
+          // Fetch the data from the API and display the courses
+          fetch('/api/courses')
+              .then(response => response.json())
+              .then(courses => {
+                  displayEnrolledCourses(courses);
+              })
+              .catch(error => {
+                  console.error('Error fetching courses:', error);
+              });
+      </script>
+  
+  
+  </body>
+  
+  </html>
+  

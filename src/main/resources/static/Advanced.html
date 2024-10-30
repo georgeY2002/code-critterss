@@ -1,0 +1,258 @@
+<!--
+  #%L
+  Code Critters
+  %%
+  Copyright (C) 2019 - 2024 Michael Gruber
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+  <!doctype html>
+  <html>
+  
+  <head>
+      <title>Code Critters</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="/lib/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+      <script type=module src="critter_components/critter-header/critter-header.js"></script>
+      <script type=module src="critter_components/critter-translator/critter-translator-escaped.js"></script>
+      <script type=module src="critter_components/critter-copyright/critter-copyright.js"></script>
+      <script type=module src="critter_components/Critter-SideBar/Critter-SideBar.js"></script>
+  
+      <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  
+      <style>
+          body {
+              font-family: 'Arial', sans-serif;
+              font-size: 0.9em;
+              margin: 0;
+              background-color: #f4f6f9;
+          }
+           /* Sidebar Styles */
+        .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 220px;
+                background-color: #ffffff; /* White background */
+                color: #000000; /* Black text */
+                padding: 20px;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar img {
+                width: 80%;
+                border-radius: 50%;
+                border: 3px solid #ffa600; /* Orange accent color */
+                margin-bottom: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar h6 {
+                color: #000000; /* Black text */
+                margin-bottom: 10px;
+                font-size: 1.1em;
+            }
+
+            .sidebar a {
+                display: flex;
+                align-items: center;
+                color: #000000; /* Black text */
+                padding: 10px 20px;
+                width: 100%;
+                text-decoration: none;
+                font-size: 1.1em;
+                border-radius: 8px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+            .sidebar a:hover {
+                background-color: #ffa600; /* Orange hover background */
+                color: #ffffff; /* White text on hover */
+            }
+
+            .sidebar i {
+                margin-right: 10px;
+            }
+
+            .sidebar .active {
+                background-color: #ffa600; /* Active link background */
+                color: #ffffff; /* White text for active link */
+            }
+            .no-hover:hover {
+    /* Reset properties that are changed on hover */
+    background-color: transparent !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    /* Add any other properties that are affected by hover */
+}
+  
+          .content {
+              margin-left: 240px;
+              padding: 20px;
+          }
+  
+          #copyright {
+              color: white;
+              background-color: rgb(57, 58, 61);
+              font-size: 1.2em;
+              padding: 2%;
+          }
+  
+          .no-hover:hover {
+              background-color: transparent !important;
+              color: inherit !important;
+              text-decoration: none !important;
+          }
+  
+          /* Box styles */
+          .box-container {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              margin-top: 20px;
+          }
+  
+          .box {
+              width: 45%;
+              height: 200px;
+              background-color: #ffa600;
+              color: white;
+              margin-bottom: 30px;
+              border-radius: 15px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 1.5em;
+              text-align: center;
+              position: relative;
+              transition: transform 0.5s ease, box-shadow 0.5s ease;
+              cursor: pointer;
+          }
+  
+          .box:hover {
+              transform: translateY(-10px);
+              box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+          }
+  
+          .box a {
+              color: white;
+              text-decoration: none;
+              display: block;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+          }
+      </style>
+  </head>
+  
+  <body>
+    <div class="sidebar">
+        <!-- Profile Picture -->
+        <a href="/Avatars.html" class="no-hover">
+            <img id="profile-picture" src="character Background Removed.png" alt="Profile Picture">
+        </a>
+
+        <!-- Links with icons and critter-translator-escaped -->
+        <a href="/index.html">
+            <i class="fa fa-home"></i>
+            <h6><b><critter-translator-escaped key="Home"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/profile.html" class="active">
+            <i class="fa fa-user"></i>
+            <h6><b><critter-translator-escaped key="Profile"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/courses.html">
+            <i class="fa fa-book"></i>
+            <h6><b><critter-translator-escaped key="Courses"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/EnrolledCourses.html">
+            <i class="fa fa-list-alt"></i>
+            <h6><b><critter-translator-escaped key="Enrolled Courses"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/MyPoints.html">
+            <i class="fa fa-star"></i>
+            <h6><b><critter-translator-escaped key="My Points"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/DashBoard.html">
+            <i class="fa fa-star"></i>
+            <h6><b><critter-translator-escaped key="Dashboard"></critter-translator-escaped></b></h6>
+        </a>
+    </div>
+      <div class="content">
+          <div class="row" id="header_row">
+              <div class="col-sm-12">
+                  <critter-header></critter-header>
+                  <hr>
+              </div>
+          </div>
+  
+          <div class="box-container">
+              <!-- Basic Box -->
+              <div class="box">
+                  <a href="Hash.html">
+                      <critter-translator-escaped key="Hash"></critter-translator-escaped>
+                  </a>
+              </div>
+  
+              <!-- Intermediate Box -->
+              <div class="box">
+                  <a href="Trees.html">
+                      <critter-translator-escaped key="Trees"></critter-translator-escaped>
+                  </a>
+              </div>
+  
+              <!-- Advanced Box -->
+              <div class="box">
+                  <a href="Graph.html">
+                      <critter-translator-escaped key="Graphs"></critter-translator-escaped>
+                  </a>
+              </div>
+  
+              <!-- Quizzes Box -->
+           
+          </div>
+  
+          <hr>
+          <div class="row">
+              <div class="col-sm-12" id="copyright">
+                  <critter-copyright></critter-copyright>
+              </div>
+          </div>
+      </div>
+  
+      <script>
+          // Check if a selected avatar exists in localStorage
+          document.addEventListener('DOMContentLoaded', () => {
+              const profilePicture = document.getElementById('profile-picture');
+              const storedAvatar = localStorage.getItem('selectedAvatar');
+  
+              if (storedAvatar) {
+                  const avatarData = JSON.parse(storedAvatar);
+                  profilePicture.src = avatarData.src;
+              }
+          });
+      </script>
+  </body>
+  
+  </html>
+  

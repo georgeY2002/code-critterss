@@ -1,0 +1,336 @@
+<!--
+  #%L
+  Code Critters
+  %%
+  Copyright (C) 2019 - 2024 Michael Gruber
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+<!doctype html>
+<html>
+
+<head>
+    <title>Code Critters - Data Structures</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/lib/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+
+    <!-- Importing the necessary custom components -->
+    <script type="module" src="critter_components/critter-header/critter-header.js"></script>
+    <script type="module" src="critter_components/critter-translator/critter-translator-escaped.js"></script>
+    <script type="module" src="critter_components/critter-copyright/critter-copyright.js"></script>
+
+    <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+
+    <custom-style>
+        <style>
+             body {
+                  font-family: 'Arial', sans-serif;
+                  font-size: 0.9em;
+                  margin: 0;
+                  background-color: #f4f6f9;
+              }
+            .sidebar {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  height: 100%;
+                  width: 220px;
+                  background-color: #ffffff;
+                  color: #000000;
+                  padding: 20px;
+                  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+              }
+  
+              .sidebar img {
+                  width: 80%;
+                  border-radius: 50%;
+                  border: 3px solid #ffa600;
+                  margin-bottom: 20px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              }
+  
+              .sidebar h6 {
+                  color: #000000;
+                  margin-bottom: 10px;
+                  font-size: 1.1em;
+              }
+  
+              .sidebar a {
+                  display: flex;
+                  align-items: center;
+                  color: #000000;
+                  padding: 10px 20px;
+                  width: 100%;
+                  text-decoration: none;
+                  font-size: 1.1em;
+                  border-radius: 8px;
+                  transition: background-color 0.3s ease, color 0.3s ease;
+              }
+  
+              .sidebar a:hover {
+                  background-color: #ffa600;
+                  color: #ffffff;
+              }
+  
+              .sidebar i {
+                  margin-right: 10px;
+              }
+  
+              .sidebar .active {
+                  background-color: #ffa600;
+                  color: #ffffff;
+              }
+  
+
+            .text {
+                text-align: left;
+                font-size: 1.3em;
+            }
+
+           
+
+           
+
+            #section_display {
+                padding: 3% 5%;
+                background-color: #f9fbff;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+            }
+
+            .section-header {
+                font-size: 28px;
+                margin-bottom: 20px;
+                font-weight: bold;
+                color: #4a90e2;
+                text-align: center;
+            }
+
+            .section {
+                margin-bottom: 30px;
+                padding: 15px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+                position: relative;
+                transition: transform 0.3s;
+            }
+
+            .section:hover {
+                transform: translateY(-5px);
+            }
+
+            .section h3 {
+                font-size: 24px;
+                color: #333;
+                text-align: center;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+
+            .section p {
+                font-size: 16px;
+                color: #666;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .section a {
+                display: block;
+                margin: 10px 0;
+                color: #4a90e2;
+                text-decoration: none;
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .section a:hover {
+                color: #ff3c69;
+                text-decoration: underline;
+            }
+
+            .section .badge {
+                background-color: #ffcc00;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 20px;
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            .section .badge-hard {
+                background-color: #ff3c69;
+            }
+
+            .section .badge-medium {
+                background-color: #f39c12;
+            }
+
+            .section .badge-basic {
+                background-color: #2ecc71;
+            }
+
+            .points-required {
+                text-align: center;
+                font-size: 14px;
+                color: #ff0000;
+                margin-top: -10px;
+            }
+
+            hr {
+                color: #ffa600;
+                background-color: #ffa600;
+                height: 3px;
+                margin: 0;
+            }
+            
+
+            #footer {
+                padding: 20px;
+                background-color: rgb(57, 58, 61);
+                text-align: center;
+                color: white;
+            }
+
+            h6 {
+                color: #ffa600;
+            }
+
+            /* Sidebar Styles */
+           
+        </style>
+    </custom-style>
+</head>
+
+<body>
+   
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Profile Picture -->
+        <img src="character Background Removed.png" alt="Profile Picture">
+
+        <!-- Links with icons and critter-translator-escaped -->
+        <a href="/index.html" class="active">
+            <i class="fa fa-home"></i>
+            <h6><b><critter-translator-escaped key="home"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/profile.html">
+            <i class="fa fa-user"></i>
+            <h6><b><critter-translator-escaped key="profile"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/courses.html">
+            <i class="fa fa-book"></i>
+            <h6><b><critter-translator-escaped key="courses"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/EnrolledCourses.html">
+            <i class="fa fa-list-alt"></i>
+            <h6><b><critter-translator-escaped key="enrolled courses"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/MyPoints.html">
+            <i class="fa fa-star"></i>
+            <h6><b><critter-translator-escaped key="my points"></critter-translator-escaped></b></h6>
+        </a>
+        <a href="/DashBoard.html">
+            <i class="fa fa-star"></i>
+            <h6><b><critter-translator-escaped key="Dashboard"></critter-translator-escaped></b></h6>
+        </a>
+    </div>
+
+
+    <div class="content">
+        <div class="row" id="header_row">
+            <div class="col-sm-12">
+                <critter-header></critter-header>
+                <hr>
+            </div>
+        </div>
+
+
+    <div class="row justify-content-center" style="margin-left: 240px;">
+        <div class="col-sm-8">
+            <!-- Section Display for Data Structures -->
+            <div class="row" id="section_display">
+                <div class="col-sm-12">
+                    <div class="section-header">
+                        <critter-translator-escaped key="header"></critter-translator-escaped>
+                    </div>
+    
+                    <!-- Introduction Section -->
+                    <div class="section">
+                        <h3><critter-translator-escaped key="intro phase"></critter-translator-escaped></h3>
+                        <p><critter-translator-escaped key="Start your journey by learning the fundamentals of Data Structures, including Arrays and Linked Lists"></critter-translator-escaped></p>
+                        <a href="/course/arrays"><critter-translator-escaped key="intro 1"></critter-translator-escaped></a>
+                        <a href="/course/linked-lists"><critter-translator-escaped key="intro 2"></critter-translator-escaped></a>
+                        <span class="badge badge-basic"><critter-translator-escaped key="intro"></critter-translator-escaped></span>
+                    </div>
+    
+                    <!-- Basic Phase Section -->
+                    <div class="section">
+                        <h3><critter-translator-escaped key="basic phase"></critter-translator-escaped></h3>
+                        <p><critter-translator-escaped key="Learn the following linked lists and matrix structures to enhance your fundamental skills."></critter-translator-escaped></p>
+                        <a href="/course/singly-linked-list"><critter-translator-escaped key="basic 1"></critter-translator-escaped></a>
+                        <a href="/course/circular-linked-list"><critter-translator-escaped key="basic 2"></critter-translator-escaped></a>
+                        <a href="/course/doubly-linked-list"><critter-translator-escaped key="basic 3"></critter-translator-escaped></a>
+                        <span class="badge badge-basic"><critter-translator-escaped key="basic"></critter-translator-escaped></span>
+                    </div>
+    
+                    <!-- Intermediate Phase Section -->
+                    <div class="section">
+                        <h3><critter-translator-escaped key="intermediate phase"></critter-translator-escaped></h3>
+                        <p><critter-translator-escaped key="Advance your knowledge with stacks, queues, and binary trees."></critter-translator-escaped></p>
+                        <a href="/course/stack"><critter-translator-escaped key="intermediate 1"></critter-translator-escaped></a>
+                        <a href="/course/queue"><critter-translator-escaped key="intermediate 2"></critter-translator-escaped></a>
+                        <a href="/course/binary-tree"><critter-translator-escaped key="intermediate 3"></critter-translator-escaped></a>
+                        <span class="badge badge-medium"><critter-translator-escaped key="medium"></critter-translator-escaped></span>
+                    </div>
+    
+                    <!-- Advanced Phase Section -->
+                    <div class="section">
+                        <h3><critter-translator-escaped key="advanced_phase"></critter-translator-escaped></h3>
+                        <p><critter-translator-escaped key="Master advanced data structures to solve complex problems"></critter-translator-escaped></p>
+                        <a href="/course/heap"><critter-translator-escaped key="advanced 1"></critter-translator-escaped></a>
+                        <a href="/course/hashing"><critter-translator-escaped key="advanced 2"></critter-translator-escaped></a>
+                        <a href="/course/graph"><critter-translator-escaped key="advanced 3"></critter-translator-escaped></a>
+                        <p class="points-required"><critter-translator-escaped key="points_required"></critter-translator-escaped></p>
+                        <span class="badge badge-hard"><critter-translator-escaped key="hard"></critter-translator-escaped></span>
+                    </div>
+    
+                    <!-- Quiz Section -->
+                    <div class="section">
+                        <h3><critter-translator-escaped key="quiz section"></critter-translator-escaped></h3>
+                        <p><critter-translator-escaped key="Test your knowledge with quizzes designed to challenge your understanding of Data Structures."></critter-translator-escaped></p>
+                        <a href="/course/quiz-basic"><critter-translator-escaped key="quiz 1"></critter-translator-escaped></a>
+                        <a href="/course/quiz-intermediate"><critter-translator-escaped key="quiz 2"></critter-translator-escaped></a>
+                        <a href="/course/quiz-advanced"><critter-translator-escaped key="quiz_3"></critter-translator-escaped></a>
+                        <span class="badge badge-basic"><critter-translator-escaped key="quizzes"></critter-translator-escaped></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <critter-copyright></critter-copyright>
+    </div>
+</body>
+
+</html>
